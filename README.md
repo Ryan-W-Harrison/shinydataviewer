@@ -17,7 +17,7 @@ You can install the development version of `{shinydataviewer}` from
 GitHub:
 
 ``` r
-pak::pak("Ryan-W-Harrison/data-explorer-module")
+pak::pak("Ryan-W-Harrison/shinydataviewer")
 ```
 
 ## Package interface
