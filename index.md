@@ -1,14 +1,12 @@
-# `{shinydataviewer}`
+# `shinydataviewer`
 
-`shinydataviewer` provides a reusable Shiny module for viewing tabular
+shinydataviewer provides a reusable Shiny module for viewing tabular
 data with a searchable table and a variable summary sidebar inspired by
 the Positron data viewer.
 
 ## Installation
 
-You can install the development version of
-[shinydataviewer](https://ryan-w-harrison.github.io/shinydataviewer/)
-from GitHub:
+You can install the development version of shinydataviewer from GitHub:
 
 ``` r
 pak::pak("Ryan-W-Harrison/shinydataviewer")
