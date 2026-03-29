@@ -1,0 +1,130 @@
+# `{shinydataviewer}`
+
+`shinydataviewer` provides a reusable Shiny module for viewing tabular
+data with a searchable table and a variable summary sidebar inspired by
+the Positron data viewer.
+
+## Installation
+
+You can install the development version of
+[shinydataviewer](https://ryan-w-harrison.github.io/shinydataviewer/)
+from GitHub:
+
+``` r
+pak::pak("Ryan-W-Harrison/data-explorer-module")
+```
+
+## Package interface
+
+The package is designed to be used as a reusable Shiny module. The main
+exported functions are:
+
+- `data_viewer_ui(id)`
+- `data_viewer_server(id, data)`
+- `data_viewer_card_ui(id, title = NULL)`
+- `summarize_columns(df)`
+
+`data` should be a reactive expression that returns a `data.frame`.
+
+## Minimal module example
+
+Use the module directly when you want the explorer layout to manage its
+own main table region:
+
+``` r
+library(shiny)
+library(bslib)
+library(shinydataviewer)
+
+ui <- page_fillable(
+  theme = bs_theme(version = 5),
+  data_viewer_ui("viewer")
+)
+
+server <- function(input, output, session) {
+  data_viewer_server(
+    "viewer",
+    data = reactive(iris)
+  )
+}
+
+shinyApp(ui, server)
+```
+
+## Embedded card example
+
+Use
+[`data_viewer_card_ui()`](https://ryan-w-harrison.github.io/shinydataviewer/reference/data_viewer_card_ui.md)
+when the viewer needs to live inside a larger dashboard or reporting
+layout:
+
+``` r
+library(shiny)
+library(bslib)
+library(shinydataviewer)
+
+ui <- page_fillable(
+  theme = bs_theme(version = 5),
+  layout_columns(
+    col_widths = c(4, 8),
+    card(
+      card_header("Context"),
+      card_body("Supporting content goes here.")
+    ),
+    card(
+      card_header("Dataset"),
+      card_body(
+        fill = TRUE,
+        data_viewer_card_ui("viewer", title = NULL, full_screen = FALSE)
+      )
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  data_viewer_server(
+    "viewer",
+    data = reactive(mtcars)
+  )
+}
+
+shinyApp(ui, server)
+```
+
+An additional runnable example is included at
+`inst/examples/embedded-card-example.R`.
+
+## Theming and branding
+
+The viewer styles are attached as a package dependency and use Bootstrap
+5 theme variables instead of fixed colors. In practice, that means the
+module will follow the active `bslib` theme and should pick up branding
+supplied through
+[`bs_theme()`](https://rstudio.github.io/bslib/reference/bs_theme.html)
+or a `brand.yml`-driven theme without additional module-specific
+configuration.
+
+``` r
+ui <- page_fillable(
+  theme = bs_theme(
+    version = 5,
+    brand = "brand.yml"
+  ),
+  data_viewer_card_ui("viewer")
+)
+```
+
+## Data summary helper
+
+If you want access to the same summary data used by the module’s
+variable panel, you can call
+[`summarize_columns()`](https://ryan-w-harrison.github.io/shinydataviewer/reference/summarize_columns.md)
+directly:
+
+``` r
+summarize_columns(iris)
+```
+
+## About
+
+You are reading documentation for version 0.0.0.9000.
