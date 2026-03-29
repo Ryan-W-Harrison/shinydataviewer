@@ -1,4 +1,4 @@
-test_that("module UI builders attach one explorer dependency and namespace outputs", {
+test_that("module UI builders attach one viewer dependency and namespace outputs", {
   ui <- data_viewer_ui("viewer")
   deps <- htmltools::findDependencies(ui)
 
