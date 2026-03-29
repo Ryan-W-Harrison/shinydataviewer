@@ -28,6 +28,7 @@ See the pkgdown articles for end-to-end examples:
 Useful links:
 \itemize{
   \item \url{https://ryan-w-harrison.github.io/shinydataviewer/}
+  \item \url{https://github.com/Ryan-W-Harrison/shinydataviewer}
 }
 
 }
