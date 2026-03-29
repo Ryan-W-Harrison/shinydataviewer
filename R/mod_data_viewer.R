@@ -36,8 +36,8 @@ data_viewer_ui <- function(
 ) {
   table_controls_position <- match.arg(table_controls_position)
 
-  with_data_explorer_deps(
-    data_explorer_layout_ui(
+  with_data_viewer_deps(
+    data_viewer_layout_ui(
       id,
       standalone = standalone,
       table_title = table_title,
@@ -47,7 +47,7 @@ data_viewer_ui <- function(
   )
 }
 
-data_explorer_layout_ui <- function(
+data_viewer_layout_ui <- function(
   id,
   standalone = TRUE,
   table_title = NULL,
@@ -55,7 +55,11 @@ data_explorer_layout_ui <- function(
 ) {
   ns <- shiny::NS(id)
   table_region <- if (standalone) {
-    card_header <- if (is.null(table_title)) NULL else bslib::card_header(table_title)
+    card_header <- if (is.null(table_title)) {
+      NULL
+    } else {
+      bslib::card_header(table_title)
+    }
 
     bslib::card(
       full_screen = TRUE,
@@ -139,7 +143,7 @@ data_viewer_card_ui <- function(
   table_controls_position <- match.arg(table_controls_position)
   card_header <- if (is.null(title)) NULL else bslib::card_header(title)
 
-  with_data_explorer_deps(
+  with_data_viewer_deps(
     bslib::card(
       class = "de-module-card",
       full_screen = full_screen,
@@ -148,7 +152,7 @@ data_viewer_card_ui <- function(
       bslib::card_body(
         class = "de-module-card__body",
         fill = TRUE,
-        data_explorer_layout_ui(
+        data_viewer_layout_ui(
           id,
           standalone = FALSE,
           sidebar_title = sidebar_title
@@ -266,10 +270,11 @@ data_viewer_server <- function(
         page_size_options = page_size_options
       )
       table_theme <- reactable_theme %||% default_reactable_theme()
-      col_def <- default_col_def %||% reactable::colDef(
-        minWidth = 120,
-        headerClass = "de-table-header"
-      )
+      col_def <- default_col_def %||%
+        reactable::colDef(
+          minWidth = 120,
+          headerClass = "de-table-header"
+        )
       table_args <- utils::modifyList(
         list(
           data = df,
@@ -324,11 +329,18 @@ validate_data_frame <- function(x) {
   }
 
   if (ncol(x) == 0) {
-    shiny::validate(shiny::need(FALSE, "Dataset must contain at least one column."))
+    shiny::validate(shiny::need(
+      FALSE,
+      "Dataset must contain at least one column."
+    ))
   }
 }
 
-resolve_default_page_size <- function(n_rows, default_page_size = NULL, page_size_options = c(15, 25, 50, 100)) {
+resolve_default_page_size <- function(
+  n_rows,
+  default_page_size = NULL,
+  page_size_options = c(15, 25, 50, 100)
+) {
   if (!is.null(default_page_size)) {
     return(max(1L, as.integer(default_page_size[[1]])))
   }
@@ -342,7 +354,9 @@ default_reactable_theme <- function() {
     borderColor = "var(--bs-border-color)",
     stripedColor = "color-mix(in srgb, var(--bs-body-bg) 88%, white 12%)",
     highlightColor = "rgba(var(--bs-primary-rgb), 0.08)",
-    rowSelectedStyle = list(backgroundColor = "rgba(var(--bs-primary-rgb), 0.14)"),
+    rowSelectedStyle = list(
+      backgroundColor = "rgba(var(--bs-primary-rgb), 0.14)"
+    ),
     searchInputStyle = list(width = "100%"),
     cellPadding = "0.65rem 0.75rem",
     style = list(

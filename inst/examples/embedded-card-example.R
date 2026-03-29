@@ -19,7 +19,7 @@ ui <- page_fillable(
     card(
       card_header("Context"),
       card_body(
-        "The explorer below is embedded inside a larger host card."
+        "The viewer below is embedded inside a larger host card."
       )
     ),
     card(
@@ -28,7 +28,7 @@ ui <- page_fillable(
       card_body(
         fill = TRUE,
         data_viewer_card_ui(
-          "explorer",
+          "viewer",
           title = NULL,
           full_screen = FALSE,
           sidebar_title = NULL
@@ -39,7 +39,7 @@ ui <- page_fillable(
 )
 
 server <- function(input, output, session) {
-  data_viewer_server("explorer", reactive(sample_data))
+  data_viewer_server("viewer", reactive(sample_data))
 }
 
 shinyApp(ui, server)

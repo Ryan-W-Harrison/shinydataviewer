@@ -4,30 +4,30 @@
 #' portable across host applications.
 #'
 #' @noRd
-data_explorer_dependency <- function() {
+data_viewer_dependency <- function() {
   htmltools::htmlDependency(
     name = "shinydataviewer",
     version = "0.0.0.9000",
-    src = c(file = data_explorer_www_path()),
-    stylesheet = "data-explorer.css",
-    script = "data-explorer.js"
+    src = c(file = data_viewer_www_path()),
+    stylesheet = "data-viewer.css",
+    script = "data-viewer.js"
   )
 }
 
 #' @noRd
-with_data_explorer_deps <- function(..., root_class = NULL) {
+with_data_viewer_deps <- function(..., root_class = NULL) {
   root_classes <- paste(c("de-root", root_class), collapse = " ")
 
   htmltools::tagList(
     htmltools::attachDependencies(
       htmltools::tags$div(class = root_classes, ...),
-      data_explorer_dependency()
+      data_viewer_dependency()
     )
   )
 }
 
 #' @noRd
-data_explorer_www_path <- function() {
+data_viewer_www_path <- function() {
   installed_path <- app_sys("app/www")
 
   if (nzchar(installed_path) && dir.exists(installed_path)) {
