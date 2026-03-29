@@ -5,6 +5,7 @@
 
 <!-- badges: start -->
 
+[![R-CMD-check](https://github.com/Ryan-W-Harrison/shinydataviewer/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Ryan-W-Harrison/shinydataviewer/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 `shinydataviewer` provides a reusable Shiny module for viewing tabular
@@ -34,7 +35,7 @@ exported functions are:
 
 ## Minimal module example
 
-Use the module directly when you want the explorer layout to manage its
+Use the module directly when you want the viewer layout to manage its
 own main table region:
 
 ``` r
