@@ -1,0 +1,291 @@
+.de-root {
+  --de-border: var(--bs-border-color);
+  --de-muted: var(--bs-secondary-color);
+  --de-text: var(--bs-body-color);
+  --de-surface: color-mix(in srgb, var(--bs-body-bg) 94%, white 6%);
+  --de-surface-strong: color-mix(in srgb, var(--bs-body-bg) 86%, white 14%);
+  --de-accent: var(--bs-primary);
+  --de-accent-rgb: var(--bs-primary-rgb);
+  --de-danger: var(--bs-danger);
+  --de-warning: var(--bs-warning);
+}
+
+.de-root .de-sidebar {
+  background: color-mix(in srgb, var(--de-surface) 90%, transparent 10%);
+  border: 0;
+  border-radius: 1rem;
+  box-shadow: none;
+  align-self: stretch;
+  max-height: var(--de-panel-height);
+  overflow: hidden;
+}
+
+.de-root .de-sidebar .sidebar-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  padding: 1rem;
+}
+
+.de-root .de-sidebar__inner {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 0.9rem;
+  min-width: 0;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+}
+
+.de-root .de-table-card,
+.de-root .de-module-card,
+.de-root .de-var-card,
+.de-root .de-empty-card {
+  background: transparent;
+  border: 0;
+  border-radius: 1rem;
+  box-shadow: none;
+}
+
+.de-root .de-var-card,
+.de-root .de-empty-card {
+  flex: 0 0 auto;
+  height: auto;
+  min-height: fit-content;
+}
+
+.de-root .de-table-card .card-header,
+.de-root .de-module-card > .card-header {
+  background: linear-gradient(
+    135deg,
+    rgba(var(--de-accent-rgb), 0.12),
+    color-mix(in srgb, var(--de-surface-strong) 92%, white 8%)
+  );
+  border-bottom: 0;
+  font-family: var(--bs-heading-font-family);
+  font-weight: 600;
+}
+
+.de-root .de-table-card:not(:has(.card-header)) .de-table-card__body {
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+}
+
+.de-root .de-table-card__body,
+.de-root .de-module-card__body,
+.de-root .de-table-region {
+  height: 100%;
+  min-height: 0;
+  overflow: auto;
+}
+
+.de-root .de-var-card > .card-body,
+.de-root .de-empty-card > .card-body {
+  background: color-mix(in srgb, var(--de-surface) 96%, transparent 4%);
+  border-radius: 1rem;
+  overflow: visible;
+}
+
+.de-root .de-var-card .accordion-item,
+.de-root .de-var-card .accordion-button,
+.de-root .de-var-card .accordion-body {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.de-root .de-var-card .accordion,
+.de-root .de-var-card .accordion-item,
+.de-root .de-var-card .accordion-collapse,
+.de-root .de-var-card .accordion-body {
+  overflow: visible;
+}
+
+.de-root--controls-top .reactable {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.de-root--controls-top .rt-search {
+  order: 1;
+}
+
+.de-root--controls-top .rt-pagination {
+  align-items: center;
+  border-top: 0;
+  display: flex;
+  gap: 0.75rem;
+  justify-content: space-between;
+  margin: 0;
+  order: 2;
+  padding: 0 0 0.5rem;
+}
+
+.de-root--controls-top .rt-table {
+  order: 3;
+}
+
+.de-root .de-var-card__body {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.de-root .de-var-card__header {
+  align-items: flex-start;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.de-root .de-var-card__identity {
+  min-width: 0;
+}
+
+.de-root .de-var-card__name {
+  color: var(--de-text);
+  font-weight: 700;
+  line-height: 1.2;
+  word-break: break-word;
+}
+
+.de-root .de-var-card__type,
+.de-root .de-muted-label,
+.de-root .de-detail-row__label,
+.de-root .de-detail-section-label,
+.de-root .de-distribution-empty {
+  color: var(--de-muted);
+  font-size: 0.8rem;
+}
+
+.de-root .de-var-card__missing {
+  display: grid;
+  gap: 0.15rem;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.de-root .de-missing-bar {
+  background: color-mix(in srgb, var(--de-border) 55%, white 45%);
+  border-radius: 999px;
+  height: 0.42rem;
+  overflow: hidden;
+}
+
+.de-root .de-missing-bar__fill {
+  background: linear-gradient(90deg, var(--de-warning) 0%, var(--de-danger) 100%);
+  border-radius: inherit;
+  height: 100%;
+}
+
+.de-root .de-var-card__distribution {
+  min-height: 3.5rem;
+  min-width: 0;
+  overflow: visible;
+}
+
+.de-root .de-mini-chart {
+  align-items: end;
+  display: flex;
+  gap: 0.18rem;
+  height: 3.5rem;
+  min-width: 0;
+  overflow: visible;
+  width: 100%;
+}
+
+.de-root .de-mini-chart__bar-wrap {
+  -webkit-appearance: none;
+  align-items: end;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  cursor: pointer;
+  display: flex;
+  flex: 1 1 0;
+  height: 100%;
+  margin: 0;
+  min-width: 0;
+  overflow: visible;
+  padding: 0;
+  position: relative;
+  vertical-align: bottom;
+}
+
+.de-root .de-mini-chart__bar {
+  background: linear-gradient(
+    180deg,
+    rgba(var(--de-accent-rgb), 0.95),
+    rgba(var(--de-accent-rgb), 0.35)
+  );
+  border-radius: 0.3rem 0.3rem 0 0;
+  flex: 1 1 0;
+  min-width: 0;
+  transition: transform 140ms ease, filter 140ms ease;
+  width: 100%;
+}
+
+.de-root .de-mini-chart__bar-wrap:hover .de-mini-chart__bar,
+.de-root .de-mini-chart__bar-wrap:focus-visible .de-mini-chart__bar {
+  filter: brightness(1.05);
+  transform: translateY(-2px);
+}
+
+.de-root .de-mini-chart__bar-wrap:focus-visible {
+  outline: 2px solid rgba(var(--de-accent-rgb), 0.35);
+  outline-offset: 2px;
+}
+
+.de-root .accordion-button {
+  font-weight: 600;
+}
+
+.de-root .de-detail-grid {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.de-root .de-detail-row {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.de-root .de-detail-row__value {
+  color: var(--de-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.de-root .de-detail-section-label {
+  letter-spacing: 0.06em;
+  margin: 0.75rem 0 0.35rem;
+  text-transform: uppercase;
+}
+
+.de-root .de-table-header {
+  font-family: var(--bs-heading-font-family);
+}
+
+@media (max-width: 991.98px) {
+  .de-root .bslib-sidebar-layout {
+    gap: 1rem;
+  }
+
+  .de-root .de-sidebar {
+    height: auto;
+    max-height: none;
+    overflow: visible;
+  }
+
+  .de-root .de-sidebar .sidebar-content,
+  .de-root .de-sidebar__inner {
+    height: auto;
+    min-height: initial;
+    overflow: visible;
+  }
+}

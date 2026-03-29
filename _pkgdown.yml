@@ -1,0 +1,32 @@
+url: https://ryan-w-harrison.github.io/shinydataviewer/
+template:
+  bootstrap: 5
+
+home:
+  sidebar:
+    structure: [license, authors, dev]
+
+navbar:
+  structure:
+    left: [intro, reference, articles, news]
+  components:
+    intro:
+      text: Get Started
+      href: articles/get-started.html
+
+reference:
+  - title: Viewer module
+    contents:
+      - data_viewer_ui
+      - data_viewer_card_ui
+      - data_viewer_server
+  - title: Data summaries
+    contents:
+      - summarize_columns
+
+articles:
+  - title: Guides
+    navbar: Guides
+    contents:
+      - get-started
+      - customization

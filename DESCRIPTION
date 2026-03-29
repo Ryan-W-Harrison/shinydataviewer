@@ -1,0 +1,24 @@
+Package: shinydataviewer
+Title: Reusable Data Viewer Module for Shiny
+Version: 0.0.0.9000
+Authors@R: 
+    person("Ryan", "Harrison", , "harrison.ryan.w@gmail.com", role = c("aut", "cre", "cph"))
+Description: Provides a reusable Shiny module for viewing tabular data with a searchable 'reactable' table and a variable summary sidebar built with 'bslib'.
+License: MIT + file LICENSE
+Imports: 
+    bslib,
+    htmltools,
+    reactable,
+    shiny
+Suggests:
+    knitr,
+    pkgdown,
+    rmarkdown,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Encoding: UTF-8
+LazyData: true
+VignetteBuilder: knitr
+RoxygenNote: 7.3.3
+Roxygen: list(markdown = TRUE)
+URL: https://ryan-w-harrison.github.io/shinydataviewer/
