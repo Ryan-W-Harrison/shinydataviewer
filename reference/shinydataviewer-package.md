@@ -27,6 +27,8 @@ Useful links:
 
 - <https://ryan-w-harrison.github.io/shinydataviewer/>
 
+- <https://github.com/Ryan-W-Harrison/shinydataviewer>
+
 ## Author
 
 **Maintainer**: Ryan Harrison <harrison.ryan.w@gmail.com> \[copyright
