@@ -11,7 +11,7 @@ You can install the development version of
 from GitHub:
 
 ``` r
-pak::pak("Ryan-W-Harrison/data-explorer-module")
+pak::pak("Ryan-W-Harrison/shinydataviewer")
 ```
 
 ## Package interface
@@ -28,7 +28,7 @@ exported functions are:
 
 ## Minimal module example
 
-Use the module directly when you want the explorer layout to manage its
+Use the module directly when you want the viewer layout to manage its
 own main table region:
 
 ``` r
