@@ -18,6 +18,14 @@ with:
 - a variable summary sidebar
 - Bootstrap 5 compatible styling via `bslib`
 
+## Interface preview
+
+![The data viewer combines per-variable summary cards with a searchable
+table.](figures/screenshot.png)
+
+The data viewer combines per-variable summary cards with a searchable
+table.
+
 ## Minimal module
 
 Use

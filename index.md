@@ -1,8 +1,11 @@
-# `shinydataviewer`
+# shinydataviewer
 
 shinydataviewer provides a reusable Shiny module for viewing tabular
 data with a searchable table and a variable summary sidebar inspired by
 the Positron data viewer.
+
+![Screenshot of the shinydataviewer
+interface](reference/figures/screenshot.png)
 
 ## Installation
 
