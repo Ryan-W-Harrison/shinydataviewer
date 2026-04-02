@@ -10,7 +10,15 @@ test_that("all-missing columns produce stable summary metadata", {
   expect_equal(unname(summary_df$pct_missing), c(1, 1))
 
   numeric_stats <- summary_df$summary_stats[[1]]
-  expect_true(all(is.na(unlist(numeric_stats[c("min", "q1", "median", "q3", "mean", "max", "sd")]))))
+  expect_true(all(is.na(unlist(numeric_stats[c(
+    "min",
+    "q1",
+    "median",
+    "q3",
+    "mean",
+    "max",
+    "sd"
+  )]))))
   expect_identical(summary_df$distribution_data[[1]]$bins, numeric())
 
   date_stats <- summary_df$summary_stats[[2]]

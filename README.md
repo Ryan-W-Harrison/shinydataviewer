@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# `shinydataviewer`
+# shinydataviewer <img src="man/figures/logo-direct-primary.png" align="right" width="280" alt="shinydataviewer hex sticker logo" />
 
 <!-- badges: start -->
 
@@ -11,6 +11,11 @@
 shinydataviewer provides a reusable Shiny module for viewing tabular
 data with a searchable table and a variable summary sidebar inspired by
 the Positron data viewer.
+
+<p align="center">
+
+<img src="man/figures/screenshot.png" alt="Screenshot of the shinydataviewer interface" width="100%" />
+</p>
 
 ## Installation
 

@@ -16,7 +16,9 @@ summarize_columns <- function(df, top_n = 6) {
     pct_missing = vapply(df, pct_missing, numeric(1)),
     n_unique = vapply(df, unique_non_missing, integer(1)),
     summary_stats = I(lapply(df, summarize_vector)),
-    distribution_data = I(lapply(df, function(x) distribution_data(x, top_n = top_n))),
+    distribution_data = I(lapply(df, function(x) {
+      distribution_data(x, top_n = top_n)
+    })),
     stringsAsFactors = FALSE,
     check.names = FALSE
   )
@@ -162,7 +164,11 @@ categorical_counts <- function(x) {
   values <- x[!is.na(x)]
 
   if (length(values) == 0) {
-    return(data.frame(level = character(0), count = integer(0), stringsAsFactors = FALSE))
+    return(data.frame(
+      level = character(0),
+      count = integer(0),
+      stringsAsFactors = FALSE
+    ))
   }
 
   values_chr <- as.character(values)

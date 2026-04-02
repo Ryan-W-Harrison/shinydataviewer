@@ -10,7 +10,10 @@ test_that("summarize_columns returns expected metadata for mixed data", {
   summary_df <- summarize_columns(df, top_n = 1)
 
   expect_equal(nrow(summary_df), 4)
-  expect_equal(unname(summary_df$type), c("numeric", "character", "logical", "date"))
+  expect_equal(
+    unname(summary_df$type),
+    c("numeric", "character", "logical", "date")
+  )
   expect_equal(unname(summary_df$n_missing), c(1L, 1L, 1L, 1L))
   expect_equal(unname(summary_df$n_unique), c(3L, 2L, 2L, 3L))
 
@@ -26,7 +29,10 @@ test_that("summarize_columns returns expected metadata for mixed data", {
 })
 
 test_that("categorical distributions collapse extra levels into Other", {
-  df <- data.frame(category = c("a", "b", "c", "d", "a", "b", "e"), stringsAsFactors = FALSE)
+  df <- data.frame(
+    category = c("a", "b", "c", "d", "a", "b", "e"),
+    stringsAsFactors = FALSE
+  )
 
   summary_df <- summarize_columns(df, top_n = 2)
   counts <- summary_df$distribution_data[[1]]$counts
