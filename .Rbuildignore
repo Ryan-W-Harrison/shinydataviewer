@@ -13,3 +13,5 @@ $run_dev.*
 ^\.github$
 ^doc$
 ^Meta$
+air.toml
+jarl.toml

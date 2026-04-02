@@ -96,8 +96,14 @@ variable_summary_card <- function(summary_row, index) {
         class = "de-var-card__header",
         htmltools::tags$div(
           class = "de-var-card__identity",
-          htmltools::tags$div(class = "de-var-card__name", summary_row$var_name[[1]]),
-          htmltools::tags$div(class = "de-var-card__type", summary_row$type[[1]])
+          htmltools::tags$div(
+            class = "de-var-card__name",
+            summary_row$var_name[[1]]
+          ),
+          htmltools::tags$div(
+            class = "de-var-card__type",
+            summary_row$type[[1]]
+          )
         ),
         htmltools::tags$div(
           class = "de-var-card__missing",
@@ -137,7 +143,10 @@ detail_panel <- function(type, stats) {
       detail_row("SD", format_number(stats$sd))
     )
 
-    return(htmltools::tags$div(class = "de-detail-grid", htmltools::tagList(rows)))
+    return(htmltools::tags$div(
+      class = "de-detail-grid",
+      htmltools::tagList(rows)
+    ))
   }
 
   if (type == "date") {
@@ -148,7 +157,10 @@ detail_panel <- function(type, stats) {
       detail_row("Max", format_date(stats$max))
     )
 
-    return(htmltools::tags$div(class = "de-detail-grid", htmltools::tagList(rows)))
+    return(htmltools::tags$div(
+      class = "de-detail-grid",
+      htmltools::tagList(rows)
+    ))
   }
 
   top_levels <- stats$top_levels
@@ -173,7 +185,10 @@ detail_panel <- function(type, stats) {
       detail_row("Unique", format_count(stats$n_unique))
     ),
     htmltools::tags$div(class = "de-detail-section-label", "Top levels"),
-    htmltools::tags$div(class = "de-detail-grid", htmltools::tagList(level_rows))
+    htmltools::tags$div(
+      class = "de-detail-grid",
+      htmltools::tagList(level_rows)
+    )
   )
 }
 
@@ -265,7 +280,13 @@ categorical_tooltip <- function(value, count, total) {
 }
 
 #' @noRd
-histogram_tooltip <- function(left, right, count, total, value_type = "numeric") {
+histogram_tooltip <- function(
+  left,
+  right,
+  count,
+  total,
+  value_type = "numeric"
+) {
   sprintf(
     "Range: %s to %s\nCount: %s (%s)",
     format_range_value(left, value_type),

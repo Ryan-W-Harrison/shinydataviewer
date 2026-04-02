@@ -26,6 +26,12 @@ library(bslib)
 - a variable summary sidebar
 - Bootstrap 5 compatible styling via `bslib`
 
+## Interface preview
+
+```{r, echo = FALSE, out.width = "100%", fig.cap = "The data viewer combines per-variable summary cards with a searchable table."}
+knitr::include_graphics("figures/screenshot.png")
+```
+
 ## Minimal module
 
 Use `data_viewer_ui()` when the viewer should manage its own table card.

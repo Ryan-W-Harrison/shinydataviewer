@@ -70,12 +70,23 @@ test_that("module server updates rendered outputs when data changes", {
 
 test_that("validate_data_frame rejects invalid inputs", {
   expect_error(validate_data_frame(NULL), "Data is not available")
-  expect_error(validate_data_frame(list(a = 1)), "`data` must be a data.frame", fixed = TRUE)
-  expect_error(validate_data_frame(data.frame()), "Dataset must contain at least one column")
+  expect_error(
+    validate_data_frame(list(a = 1)),
+    "`data` must be a data.frame",
+    fixed = TRUE
+  )
+  expect_error(
+    validate_data_frame(data.frame()),
+    "Dataset must contain at least one column"
+  )
 })
 
 test_that("validate_summary_card_fn rejects invalid inputs", {
-  expect_error(validate_summary_card_fn("not a function"), "`summary_card_fn` must be a function.", fixed = TRUE)
+  expect_error(
+    validate_summary_card_fn("not a function"),
+    "`summary_card_fn` must be a function.",
+    fixed = TRUE
+  )
 })
 
 test_that("module server respects top_n and table customization hooks", {

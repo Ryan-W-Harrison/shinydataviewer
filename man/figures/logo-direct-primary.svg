@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="522" height="600" viewBox="0 0 1200 1380" role="img" aria-labelledby="title desc">
+  <title id="title">shinydataviewer hex sticker</title>
+  <desc id="desc">Hex sticker for shinydataviewer with summary bars beside a data table.</desc>
+
+  <polygon
+    points="600,40 1050,300 1050,820 600,1080 150,820 150,300"
+    fill="#f7f9fc"
+    stroke="#14374d"
+    stroke-width="26"
+    stroke-linejoin="round"
+  />
+
+  <text
+    x="600"
+    y="372"
+    text-anchor="middle"
+    fill="#18374c"
+    font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+    font-size="76"
+    font-weight="500"
+  >
+    shinydataviewer
+  </text>
+
+  <g transform="translate(335 498)">
+    <rect x="0" y="0" width="185" height="120" rx="24" fill="#ffffff" stroke="#d8e2eb" stroke-width="8"/>
+    <rect x="0" y="145" width="185" height="120" rx="24" fill="#ffffff" stroke="#d8e2eb" stroke-width="8"/>
+    <rect x="215" y="0" width="300" height="265" rx="26" fill="#ffffff" stroke="#d8e2eb" stroke-width="8"/>
+    <rect x="196" y="0" width="11" height="265" rx="6" fill="#d5e0ea"/>
+
+    <rect x="24" y="18" width="60" height="12" rx="6" fill="#17364a"/>
+    <rect x="24" y="38" width="42" height="8" rx="4" fill="#7a8da0"/>
+    <rect x="24" y="84" width="26" height="8" rx="4" fill="#c8e7f8"/>
+    <rect x="54" y="84" width="26" height="8" rx="4" fill="#c8e7f8"/>
+    <rect x="84" y="84" width="26" height="8" rx="4" fill="#c8e7f8"/>
+    <rect x="114" y="84" width="26" height="8" rx="4" fill="#c8e7f8"/>
+    <rect x="144" y="58" width="20" height="36" rx="5" fill="#2791d5"/>
+
+    <rect x="24" y="162" width="54" height="12" rx="6" fill="#17364a"/>
+    <rect x="24" y="182" width="38" height="8" rx="4" fill="#7a8da0"/>
+    <rect x="24" y="221" width="34" height="34" rx="5" fill="#4da4dc"/>
+    <rect x="62" y="196" width="34" height="59" rx="5" fill="#2791d5"/>
+    <rect x="100" y="208" width="34" height="47" rx="5" fill="#51a8de"/>
+    <rect x="138" y="229" width="24" height="26" rx="5" fill="#79c0e7"/>
+
+    <rect x="242" y="28" width="188" height="24" rx="8" fill="#eef4fa" stroke="#d8e2eb" stroke-width="4"/>
+    <g fill="#ffffff" stroke="#d5e0ea" stroke-width="4">
+      <rect x="242" y="74" width="32" height="28" rx="5"/>
+      <rect x="282" y="74" width="32" height="28" rx="5"/>
+      <rect x="322" y="74" width="32" height="28" rx="5"/>
+      <rect x="362" y="74" width="32" height="28" rx="5"/>
+      <rect x="402" y="74" width="32" height="28" rx="5"/>
+      <rect x="242" y="110" width="32" height="28" rx="5"/>
+      <rect x="282" y="110" width="32" height="28" rx="5"/>
+      <rect x="322" y="110" width="32" height="28" rx="5"/>
+      <rect x="362" y="110" width="32" height="28" rx="5"/>
+      <rect x="402" y="110" width="32" height="28" rx="5"/>
+      <rect x="242" y="146" width="32" height="28" rx="5"/>
+      <rect x="282" y="146" width="32" height="28" rx="5"/>
+      <rect x="322" y="146" width="32" height="28" rx="5"/>
+      <rect x="362" y="146" width="32" height="28" rx="5"/>
+      <rect x="402" y="146" width="32" height="28" rx="5"/>
+    </g>
+  </g>
+</svg>
