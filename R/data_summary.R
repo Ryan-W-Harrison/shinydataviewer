@@ -15,7 +15,9 @@ summarize_columns <- function(df, top_n = 6) {
     n_missing = vapply(df, function(x) sum(is.na(x)), integer(1)),
     pct_missing = vapply(df, pct_missing, numeric(1)),
     n_unique = vapply(df, unique_non_missing, integer(1)),
-    summary_stats = I(lapply(df, function(x) summarize_vector(x, top_n = top_n))),
+    summary_stats = I(lapply(df, function(x) {
+      summarize_vector(x, top_n = top_n)
+    })),
     distribution_data = I(lapply(df, function(x) {
       distribution_data(x, top_n = top_n)
     })),
