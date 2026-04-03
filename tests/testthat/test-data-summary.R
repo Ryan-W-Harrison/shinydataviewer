@@ -42,7 +42,9 @@ test_that("categorical distributions collapse extra levels into Other", {
   expect_equal(summary_df$distribution_data[[1]]$total, 7L)
 
   top_levels <- summary_df$summary_stats[[1]]$top_levels
-  expect_equal(top_levels$pct, c(2 / 7, 2 / 7, 1 / 7, 1 / 7, 1 / 7))
+  expect_equal(top_levels$level, c("a", "b"))
+  expect_equal(top_levels$count, c(2L, 2L))
+  expect_equal(top_levels$pct, c(2 / 7, 2 / 7))
 })
 
 test_that("numeric histogram metadata includes ranges and totals", {
