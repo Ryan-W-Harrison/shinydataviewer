@@ -25,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">shinydataviewer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,6 +45,7 @@
     <li><a class="dropdown-item" href="../articles/customization.html">Customization</a></li>
   </ul>
 </li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -89,6 +90,11 @@ viewing data with:</p>
 <li>Bootstrap 5 compatible styling via <code>bslib</code>
 </li>
 </ul>
+<p>The module supports data frames with numeric, integer, character,
+factor, logical, <code>Date</code>, and
+<code>POSIXct</code>/<code>POSIXt</code> columns. Non-finite numeric
+values such as <code>Inf</code>, <code>-Inf</code>, and <code>NaN</code>
+are excluded from numeric summary statistics and histogram bins.</p>
 <div class="section level2">
 <h2 id="interface-preview">Interface preview<a class="anchor" aria-label="anchor" href="#interface-preview"></a>
 </h2>
@@ -165,6 +171,11 @@ another layout.</p>
 <span><span class="co">#&gt; Petal.Length Petal.Length numeric         0        4</span></span>
 <span><span class="co">#&gt; Petal.Width   Petal.Width numeric         0        2</span></span>
 <span><span class="co">#&gt; Species           Species  factor         0        1</span></span></code></pre></div>
+<p><code><a href="../reference/summarize_columns.html">summarize_columns()</a></code> returns one row per input column.
+Its <code>summary_stats</code> and <code>distribution_data</code>
+list-columns contain the precomputed payloads used by the viewer cards,
+including detail statistics, categorical top-level counts, and compact
+histogram metadata.</p>
 </div>
 <div class="section level2">
 <h2 id="example-app">Example app<a class="anchor" aria-label="anchor" href="#example-app"></a>

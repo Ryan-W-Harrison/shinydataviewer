@@ -18,6 +18,11 @@ with:
 - a variable summary sidebar
 - Bootstrap 5 compatible styling via `bslib`
 
+The module supports data frames with numeric, integer, character,
+factor, logical, `Date`, and `POSIXct`/`POSIXt` columns. Non-finite
+numeric values such as `Inf`, `-Inf`, and `NaN` are excluded from
+numeric summary statistics and histogram bins.
+
 ## Interface preview
 
 ![The data viewer combines per-variable summary cards with a searchable
@@ -97,6 +102,12 @@ summary_df[c("var_name", "type", "n_missing", "n_unique")]
 #> Petal.Width   Petal.Width numeric         0        2
 #> Species           Species  factor         0        1
 ```
+
+[`summarize_columns()`](https://ryan-w-harrison.github.io/shinydataviewer/reference/summarize_columns.md)
+returns one row per input column. Its `summary_stats` and
+`distribution_data` list-columns contain the precomputed payloads used
+by the viewer cards, including detail statistics, categorical top-level
+counts, and compact histogram metadata.
 
 ## Example app
 

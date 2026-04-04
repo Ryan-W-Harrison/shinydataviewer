@@ -29,7 +29,8 @@ data_viewer_server(
 
 - data:
 
-  Reactive returning a data frame.
+  Reactive returning a data frame. Supported column classes are numeric,
+  integer, character, factor, logical, `Date`, and `POSIXct`/`POSIXt`.
 
 - top_n:
 
@@ -59,8 +60,8 @@ data_viewer_server(
 
 - summary_card_fn:
 
-  Function used to render each variable summary card. It must accept
-  `(summary_row, index)` and return a Shiny UI tag.
+  Function used to render each variable summary card. It must accept at
+  least `(summary_row, index)` and return a Shiny UI tag.
 
 - reactable_theme:
 
@@ -83,7 +84,7 @@ data_viewer_server(
 
 ## Value
 
-Invisibly returns a list of reactives.
+Invisibly returns a list of reactives named `data` and `summary`.
 
 ## Examples
 

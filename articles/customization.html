@@ -25,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">shinydataviewer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,6 +45,7 @@
     <li><a class="dropdown-item" href="../articles/customization.html">Customization</a></li>
   </ul>
 </li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -98,6 +99,9 @@ common table controls:</p>
 </ul>
 <p>For lower-level <code><a href="https://glin.github.io/reactable/reference/reactable.html" class="external-link">reactable()</a></code> overrides, use
 <code>reactable_args</code>.</p>
+<p><code>default_page_size</code> must be one of the values supplied in
+<code>page_size_options</code>, and <code>page_size_options</code> must
+contain positive integers.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/data_viewer_server.html">data_viewer_server</a></span><span class="op">(</span></span>
 <span>  <span class="st">"viewer"</span>,</span>
@@ -128,6 +132,9 @@ common table controls:</p>
 <p>Use <code>summary_card_fn</code> to replace the default variable card
 renderer while keeping the module’s summary computation and table
 logic.</p>
+<p>The custom function must accept at least <code>summary_row</code> and
+<code>index</code>, where <code>summary_row</code> is a one-row data
+frame produced by <code><a href="../reference/summarize_columns.html">summarize_columns()</a></code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">custom_summary_card</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">summary_row</span>, <span class="va">index</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu">htmltools</span><span class="fu">::</span><span class="va"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">tags</a></span><span class="op">$</span><span class="fu">div</span><span class="op">(</span></span>
@@ -145,6 +152,9 @@ logic.</p>
 <p>A typical use case is treating identifier-like columns differently
 from ordinary categorical fields, for example by suppressing the mini
 chart and showing a “High cardinality” badge instead.</p>
+<p>The module validates unsupported column classes early, so custom
+summary-card logic can assume the incoming <code>summary_row</code>
+corresponds to one of the supported viewer types.</p>
 </div>
 <div class="section level2">
 <h2 id="theme-integration">Theme integration<a class="anchor" aria-label="anchor" href="#theme-integration"></a>

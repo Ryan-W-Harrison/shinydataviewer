@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">shinydataviewer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,6 +24,7 @@
     <li><a class="dropdown-item" href="../articles/get-started.html">Get Started</a></li>
     <li><a class="dropdown-item" href="../articles/customization.html">Customization</a></li>
   </ul></li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/Ryan-W-Harrison/shinydataviewer/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
@@ -53,7 +54,8 @@
 
 
 <dl><dt id="arg-df">df<a class="anchor" aria-label="anchor" href="#arg-df"></a></dt>
-<dd><p>A data frame to summarize.</p></dd>
+<dd><p>A data frame to summarize. Supported column classes are numeric,
+integer, character, factor, logical, <code>Date</code>, and <code>POSIXct</code>/<code>POSIXt</code>.</p></dd>
 
 
 <dt id="arg-top-n">top_n<a class="anchor" aria-label="anchor" href="#arg-top-n"></a></dt>
@@ -63,7 +65,12 @@ the remainder into <code>"Other"</code>.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A data frame with one row per column.</p>
+    <p>A data frame with one row per column and the following columns:
+<code>var_name</code>, <code>type</code>, <code>n_missing</code>, <code>pct_missing</code>, <code>n_unique</code>,
+<code>summary_stats</code>, and <code>distribution_data</code>. <code>summary_stats</code> is a list-column
+containing per-type summary values used by the details accordion.
+<code>distribution_data</code> is a list-column containing precomputed histogram or
+categorical count payloads used by the compact mini charts.</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

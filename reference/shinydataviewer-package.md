@@ -29,6 +29,9 @@ Useful links:
 
 - <https://github.com/Ryan-W-Harrison/shinydataviewer>
 
+- Report bugs at
+  <https://github.com/Ryan-W-Harrison/shinydataviewer/issues>
+
 ## Author
 
 **Maintainer**: Ryan Harrison <harrison.ryan.w@gmail.com> \[copyright

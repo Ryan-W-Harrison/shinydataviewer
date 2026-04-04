@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">shinydataviewer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,6 +24,7 @@
     <li><a class="dropdown-item" href="../articles/get-started.html">Get Started</a></li>
     <li><a class="dropdown-item" href="../articles/customization.html">Customization</a></li>
   </ul></li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/Ryan-W-Harrison/shinydataviewer/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
@@ -70,7 +71,9 @@
 
 
 <dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
-<dd><p>Reactive returning a data frame.</p></dd>
+<dd><p>Reactive returning a data frame. Supported column classes are
+numeric, integer, character, factor, logical, <code>Date</code>, and
+<code>POSIXct</code>/<code>POSIXt</code>.</p></dd>
 
 
 <dt id="arg-top-n">top_n<a class="anchor" aria-label="anchor" href="#arg-top-n"></a></dt>
@@ -101,7 +104,7 @@ If <code>NULL</code>, the module shows all rows up to the largest page-size opti
 
 <dt id="arg-summary-card-fn">summary_card_fn<a class="anchor" aria-label="anchor" href="#arg-summary-card-fn"></a></dt>
 <dd><p>Function used to render each variable summary card.
-It must accept <code>(summary_row, index)</code> and return a Shiny UI tag.</p></dd>
+It must accept at least <code>(summary_row, index)</code> and return a Shiny UI tag.</p></dd>
 
 
 <dt id="arg-reactable-theme">reactable_theme<a class="anchor" aria-label="anchor" href="#arg-reactable-theme"></a></dt>
@@ -121,7 +124,7 @@ columns. If <code>NULL</code>, the module uses its built-in default column defin
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Invisibly returns a list of reactives.</p>
+    <p>Invisibly returns a list of reactives named <code>data</code> and <code>summary</code>.</p>
     </div>
 
     <div class="section level2">
