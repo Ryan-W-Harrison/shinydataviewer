@@ -1,6 +1,6 @@
 Package: shinydataviewer
 Title: Reusable Data Viewer Module for Shiny
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R: 
     person("Ryan", "Harrison", , "harrison.ryan.w@gmail.com", role = c("aut", "cre", "cph"))
 Description: Provides a reusable Shiny module for viewing tabular data with a searchable 'reactable' table and a variable summary sidebar built with 'bslib'.
