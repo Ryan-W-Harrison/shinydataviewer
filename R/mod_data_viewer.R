@@ -373,7 +373,10 @@ resolve_default_page_size <- function(
 
 validate_page_size_options <- function(x) {
   if (!is.numeric(x) || length(x) == 0 || anyNA(x)) {
-    stop("`page_size_options` must be a non-empty numeric vector.", call. = FALSE)
+    stop(
+      "`page_size_options` must be a non-empty numeric vector.",
+      call. = FALSE
+    )
   }
 
   if (any(x < 1) || !isTRUE(all.equal(x, round(x)))) {
@@ -388,15 +391,25 @@ validate_default_page_size <- function(default_page_size, page_size_options) {
     return(invisible(NULL))
   }
 
-  if (!is.numeric(default_page_size) ||
+  if (
+    !is.numeric(default_page_size) ||
       length(default_page_size) != 1 ||
-      is.na(default_page_size)) {
-    stop("`default_page_size` must be a single positive integer or NULL.", call. = FALSE)
+      is.na(default_page_size)
+  ) {
+    stop(
+      "`default_page_size` must be a single positive integer or NULL.",
+      call. = FALSE
+    )
   }
 
-  if (default_page_size < 1 ||
-      !isTRUE(all.equal(default_page_size, round(default_page_size)))) {
-    stop("`default_page_size` must be a single positive integer or NULL.", call. = FALSE)
+  if (
+    default_page_size < 1 ||
+      !isTRUE(all.equal(default_page_size, round(default_page_size)))
+  ) {
+    stop(
+      "`default_page_size` must be a single positive integer or NULL.",
+      call. = FALSE
+    )
   }
 
   if (!(as.integer(default_page_size) %in% page_size_options)) {
