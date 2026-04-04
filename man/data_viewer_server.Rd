@@ -22,7 +22,9 @@ data_viewer_server(
 \arguments{
 \item{id}{Module id.}
 
-\item{data}{Reactive returning a data frame.}
+\item{data}{Reactive returning a data frame. Supported column classes are
+numeric, integer, character, factor, logical, \code{Date}, and
+\code{POSIXct}/\code{POSIXt}.}
 
 \item{top_n}{Maximum number of categorical levels to keep in compact summary
 views before collapsing the remainder into \code{"Other"}.}
@@ -39,7 +41,7 @@ If \code{NULL}, the module shows all rows up to the largest page-size option.}
 \item{sortable}{Whether column sorting is enabled.}
 
 \item{summary_card_fn}{Function used to render each variable summary card.
-It must accept \verb{(summary_row, index)} and return a Shiny UI tag.}
+It must accept at least \verb{(summary_row, index)} and return a Shiny UI tag.}
 
 \item{reactable_theme}{Optional \code{reactable::reactableTheme()} object. If
 \code{NULL}, the module uses its built-in theme.}
@@ -51,7 +53,7 @@ columns. If \code{NULL}, the module uses its built-in default column definition.
 \code{reactable::reactable()}. These values override the module defaults.}
 }
 \value{
-Invisibly returns a list of reactives.
+Invisibly returns a list of reactives named \code{data} and \code{summary}.
 }
 \description{
 Data Viewer Module Server

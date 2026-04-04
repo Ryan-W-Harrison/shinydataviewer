@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 [![R-CMD-check](https://github.com/Ryan-W-Harrison/shinydataviewer/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Ryan-W-Harrison/shinydataviewer/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-shinydataviewer provides a reusable Shiny module for viewing tabular data
+`shinydataviewer` provides a reusable Shiny module for viewing tabular data
 with a searchable table and a variable summary sidebar inspired by the Positron
 data viewer.
 
@@ -29,7 +29,13 @@ data viewer.
 
 ## Installation
 
-You can install the development version of shinydataviewer from GitHub:
+Install `shinydataviewer` from CRAN:
+
+```{r, eval=FALSE, echo=TRUE}
+install.packages("shinydataviewer")
+```
+
+You can install the development version from GitHub:
 
 ```{r, eval=FALSE, echo=TRUE}
 pak::pak("Ryan-W-Harrison/shinydataviewer")
@@ -37,7 +43,7 @@ pak::pak("Ryan-W-Harrison/shinydataviewer")
 
 ## Package interface
 
-The package is designed to be used as a reusable Shiny module. The main exported
+`shinydataviewer` is designed to be used as a reusable Shiny module. The main exported
 functions are:
 
 - `data_viewer_ui(id)`
@@ -46,6 +52,8 @@ functions are:
 - `summarize_columns(df)`
 
 `data` should be a reactive expression that returns a `data.frame`.
+Supported column classes are numeric, integer, character, factor, logical,
+`Date`, and `POSIXct`/`POSIXt`.
 
 ## Minimal module example
 
@@ -140,6 +148,8 @@ you can call `summarize_columns()` directly:
 summarize_columns(iris)
 ```
 
-## About
+The returned data frame has one row per input column. Its `summary_stats` and
+`distribution_data` list-columns contain the same precomputed payloads used by
+the sidebar cards, including compact statistics, histogram bins, and top-level
+categorical counts.
 
-You are reading documentation for version `r read.dcf("DESCRIPTION")[1, "Version"]`.
