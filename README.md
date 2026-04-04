@@ -19,13 +19,13 @@ the Positron data viewer.
 
 ## Installation
 
-When `shinydataviewer` is available on CRAN, install it with:
+Install `shinydataviewer` from CRAN:
 
 ``` r
 install.packages("shinydataviewer")
 ```
 
-Until then, you can install the development version from GitHub:
+You can install the development version from GitHub:
 
 ``` r
 pak::pak("Ryan-W-Harrison/shinydataviewer")
@@ -142,7 +142,3 @@ The returned data frame has one row per input column. Its
 `summary_stats` and `distribution_data` list-columns contain the same
 precomputed payloads used by the sidebar cards, including compact
 statistics, histogram bins, and top-level categorical counts.
-
-## About
-
-You are reading documentation for version 0.0.0.9000.
