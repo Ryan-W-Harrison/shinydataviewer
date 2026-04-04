@@ -59,3 +59,16 @@ test_that("numeric histogram metadata includes ranges and totals", {
   expect_equal(distribution$total, 5L)
   expect_identical(distribution$value_type, "numeric")
 })
+
+test_that("top_n validator rejects invalid values", {
+  expect_error(
+    summarize_columns(data.frame(value = 1:3), top_n = 0),
+    "`top_n` must be a single positive integer.",
+    fixed = TRUE
+  )
+  expect_error(
+    summarize_columns(data.frame(value = 1:3), top_n = 1.5),
+    "`top_n` must be a single positive integer.",
+    fixed = TRUE
+  )
+})

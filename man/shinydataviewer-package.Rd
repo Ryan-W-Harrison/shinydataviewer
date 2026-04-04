@@ -29,6 +29,7 @@ Useful links:
 \itemize{
   \item \url{https://ryan-w-harrison.github.io/shinydataviewer/}
   \item \url{https://github.com/Ryan-W-Harrison/shinydataviewer}
+  \item Report bugs at \url{https://github.com/Ryan-W-Harrison/shinydataviewer/issues}
 }
 
 }

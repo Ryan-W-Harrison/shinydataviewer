@@ -5,6 +5,7 @@ Authors@R:
     person("Ryan", "Harrison", , "harrison.ryan.w@gmail.com", role = c("aut", "cre", "cph"))
 Description: Provides a reusable Shiny module for viewing tabular data with a searchable 'reactable' table and a variable summary sidebar built with 'bslib'.
 License: MIT + file LICENSE
+BugReports: https://github.com/Ryan-W-Harrison/shinydataviewer/issues
 Imports: 
     bslib,
     htmltools,
@@ -16,6 +17,7 @@ Suggests:
     rmarkdown,
     testthat (>= 3.0.0)
 Config/Needs/website: pkgdown, knitr, rmarkdown
+Config/Needs/README: knitr, rmarkdown
 Config/testthat/edition: 3
 Encoding: UTF-8
 VignetteBuilder: knitr

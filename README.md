@@ -19,7 +19,13 @@ the Positron data viewer.
 
 ## Installation
 
-You can install the development version of shinydataviewer from GitHub:
+When `shinydataviewer` is available on CRAN, install it with:
+
+``` r
+install.packages("shinydataviewer")
+```
+
+Until then, you can install the development version from GitHub:
 
 ``` r
 pak::pak("Ryan-W-Harrison/shinydataviewer")
@@ -36,6 +42,8 @@ exported functions are:
 - `summarize_columns(df)`
 
 `data` should be a reactive expression that returns a `data.frame`.
+Supported column classes are numeric, integer, character, factor,
+logical, `Date`, and `POSIXct`/`POSIXt`.
 
 ## Minimal module example
 
@@ -129,6 +137,11 @@ variable panel, you can call `summarize_columns()` directly:
 ``` r
 summarize_columns(iris)
 ```
+
+The returned data frame has one row per input column. Its
+`summary_stats` and `distribution_data` list-columns contain the same
+precomputed payloads used by the sidebar cards, including compact
+statistics, histogram bins, and top-level categorical counts.
 
 ## About
 

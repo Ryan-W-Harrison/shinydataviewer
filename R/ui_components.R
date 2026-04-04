@@ -163,6 +163,20 @@ detail_panel <- function(type, stats) {
     ))
   }
 
+  if (type == "datetime") {
+    rows <- list(
+      detail_row("Missing", format_count(stats$missing)),
+      detail_row("Min", format_datetime(stats$min)),
+      detail_row("Median", format_datetime(stats$median)),
+      detail_row("Max", format_datetime(stats$max))
+    )
+
+    return(htmltools::tags$div(
+      class = "de-detail-grid",
+      htmltools::tagList(rows)
+    ))
+  }
+
   top_levels <- stats$top_levels
   level_rows <- if (nrow(top_levels) == 0) {
     htmltools::tags$div(class = "de-detail-empty", "No non-missing levels")
@@ -270,6 +284,15 @@ format_date <- function(x) {
 }
 
 #' @noRd
+format_datetime <- function(x) {
+  if (is.na(x)) {
+    return("NA")
+  }
+
+  format(x, "%Y-%m-%d %H:%M:%S")
+}
+
+#' @noRd
 categorical_tooltip <- function(value, count, total) {
   sprintf(
     "Value: '%s'\nCount: %s (%s)",
@@ -298,6 +321,18 @@ histogram_tooltip <- function(
 
 #' @noRd
 format_range_value <- function(x, value_type = "numeric") {
+  if (inherits(x, "POSIXt") || identical(value_type, "datetime")) {
+    tz <- attr(x, "tzone")
+
+    if (length(tz) == 0 || !nzchar(tz[[1]])) {
+      tz <- "UTC"
+    } else {
+      tz <- tz[[1]]
+    }
+
+    return(format_datetime(as.POSIXct(x, origin = "1970-01-01", tz = tz)))
+  }
+
   if (inherits(x, "Date") || identical(value_type, "date")) {
     return(format_date(as.Date(x, origin = "1970-01-01")))
   }
