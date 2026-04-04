@@ -26,6 +26,17 @@ library(bslib)
 - a variable summary sidebar
 - Bootstrap 5 compatible styling via `bslib`
 
+The module supports data frames with numeric, integer, character, factor,
+logical, `Date`, and `POSIXct`/`POSIXt` columns. Non-finite numeric values such
+as `Inf`, `-Inf`, and `NaN` are excluded from numeric summary statistics and
+histogram bins.
+
+## Interface preview
+
+```{r, echo = FALSE, out.width = "100%", fig.cap = "The data viewer combines per-variable summary cards with a searchable table."}
+knitr::include_graphics("figures/screenshot.png")
+```
+
 ## Minimal module
 
 Use `data_viewer_ui()` when the viewer should manage its own table card.
@@ -86,6 +97,11 @@ summary_df <- summarize_columns(head(iris), top_n = 4)
 
 summary_df[c("var_name", "type", "n_missing", "n_unique")]
 ```
+
+`summarize_columns()` returns one row per input column. Its `summary_stats` and
+`distribution_data` list-columns contain the precomputed payloads used by the
+viewer cards, including detail statistics, categorical top-level counts, and
+compact histogram metadata.
 
 ## Example app
 

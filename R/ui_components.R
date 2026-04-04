@@ -96,8 +96,14 @@ variable_summary_card <- function(summary_row, index) {
         class = "de-var-card__header",
         htmltools::tags$div(
           class = "de-var-card__identity",
-          htmltools::tags$div(class = "de-var-card__name", summary_row$var_name[[1]]),
-          htmltools::tags$div(class = "de-var-card__type", summary_row$type[[1]])
+          htmltools::tags$div(
+            class = "de-var-card__name",
+            summary_row$var_name[[1]]
+          ),
+          htmltools::tags$div(
+            class = "de-var-card__type",
+            summary_row$type[[1]]
+          )
         ),
         htmltools::tags$div(
           class = "de-var-card__missing",
@@ -137,7 +143,10 @@ detail_panel <- function(type, stats) {
       detail_row("SD", format_number(stats$sd))
     )
 
-    return(htmltools::tags$div(class = "de-detail-grid", htmltools::tagList(rows)))
+    return(htmltools::tags$div(
+      class = "de-detail-grid",
+      htmltools::tagList(rows)
+    ))
   }
 
   if (type == "date") {
@@ -148,7 +157,24 @@ detail_panel <- function(type, stats) {
       detail_row("Max", format_date(stats$max))
     )
 
-    return(htmltools::tags$div(class = "de-detail-grid", htmltools::tagList(rows)))
+    return(htmltools::tags$div(
+      class = "de-detail-grid",
+      htmltools::tagList(rows)
+    ))
+  }
+
+  if (type == "datetime") {
+    rows <- list(
+      detail_row("Missing", format_count(stats$missing)),
+      detail_row("Min", format_datetime(stats$min)),
+      detail_row("Median", format_datetime(stats$median)),
+      detail_row("Max", format_datetime(stats$max))
+    )
+
+    return(htmltools::tags$div(
+      class = "de-detail-grid",
+      htmltools::tagList(rows)
+    ))
   }
 
   top_levels <- stats$top_levels
@@ -173,7 +199,10 @@ detail_panel <- function(type, stats) {
       detail_row("Unique", format_count(stats$n_unique))
     ),
     htmltools::tags$div(class = "de-detail-section-label", "Top levels"),
-    htmltools::tags$div(class = "de-detail-grid", htmltools::tagList(level_rows))
+    htmltools::tags$div(
+      class = "de-detail-grid",
+      htmltools::tagList(level_rows)
+    )
   )
 }
 
@@ -255,6 +284,15 @@ format_date <- function(x) {
 }
 
 #' @noRd
+format_datetime <- function(x) {
+  if (is.na(x)) {
+    return("NA")
+  }
+
+  format(x, "%Y-%m-%d %H:%M:%S")
+}
+
+#' @noRd
 categorical_tooltip <- function(value, count, total) {
   sprintf(
     "Value: '%s'\nCount: %s (%s)",
@@ -265,7 +303,13 @@ categorical_tooltip <- function(value, count, total) {
 }
 
 #' @noRd
-histogram_tooltip <- function(left, right, count, total, value_type = "numeric") {
+histogram_tooltip <- function(
+  left,
+  right,
+  count,
+  total,
+  value_type = "numeric"
+) {
   sprintf(
     "Range: %s to %s\nCount: %s (%s)",
     format_range_value(left, value_type),
@@ -277,6 +321,18 @@ histogram_tooltip <- function(left, right, count, total, value_type = "numeric")
 
 #' @noRd
 format_range_value <- function(x, value_type = "numeric") {
+  if (inherits(x, "POSIXt") || identical(value_type, "datetime")) {
+    tz <- attr(x, "tzone")
+
+    if (length(tz) == 0 || !nzchar(tz[[1]])) {
+      tz <- "UTC"
+    } else {
+      tz <- tz[[1]]
+    }
+
+    return(format_datetime(as.POSIXct(x, origin = "1970-01-01", tz = tz)))
+  }
+
   if (inherits(x, "Date") || identical(value_type, "date")) {
     return(format_date(as.Date(x, origin = "1970-01-01")))
   }

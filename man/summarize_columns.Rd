@@ -7,13 +7,19 @@
 summarize_columns(df, top_n = 6)
 }
 \arguments{
-\item{df}{A data frame to summarize.}
+\item{df}{A data frame to summarize. Supported column classes are numeric,
+integer, character, factor, logical, \code{Date}, and \code{POSIXct}/\code{POSIXt}.}
 
 \item{top_n}{Maximum number of categorical levels to keep before collapsing
 the remainder into \code{"Other"}.}
 }
 \value{
-A data frame with one row per column.
+A data frame with one row per column and the following columns:
+\code{var_name}, \code{type}, \code{n_missing}, \code{pct_missing}, \code{n_unique},
+\code{summary_stats}, and \code{distribution_data}. \code{summary_stats} is a list-column
+containing per-type summary values used by the details accordion.
+\code{distribution_data} is a list-column containing precomputed histogram or
+categorical count payloads used by the compact mini charts.
 }
 \description{
 Summarize Columns in a Data Frame

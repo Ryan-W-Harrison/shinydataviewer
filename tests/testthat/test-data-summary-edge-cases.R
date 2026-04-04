@@ -10,7 +10,15 @@ test_that("all-missing columns produce stable summary metadata", {
   expect_equal(unname(summary_df$pct_missing), c(1, 1))
 
   numeric_stats <- summary_df$summary_stats[[1]]
-  expect_true(all(is.na(unlist(numeric_stats[c("min", "q1", "median", "q3", "mean", "max", "sd")]))))
+  expect_true(all(is.na(unlist(numeric_stats[c(
+    "min",
+    "q1",
+    "median",
+    "q3",
+    "mean",
+    "max",
+    "sd"
+  )]))))
   expect_identical(summary_df$distribution_data[[1]]$bins, numeric())
 
   date_stats <- summary_df$summary_stats[[2]]
@@ -51,4 +59,45 @@ test_that("factor and logical columns retain expected types and counts", {
   logical_counts <- summary_df$distribution_data[[2]]$counts
   expect_equal(logical_counts$level, c("TRUE", "FALSE"))
   expect_equal(logical_counts$count, c(2L, 1L))
+})
+
+test_that("POSIXct columns are summarized as datetimes", {
+  timestamps <- as.POSIXct(
+    c("2025-01-01 08:00:00", "2025-01-02 10:30:00", NA, "2025-01-03 11:45:00"),
+    tz = "UTC"
+  )
+
+  summary_df <- summarize_columns(data.frame(timestamp = timestamps))
+
+  expect_identical(summary_df$type[[1]], "datetime")
+  datetime_stats <- summary_df$summary_stats[[1]]
+  expect_s3_class(datetime_stats$min, "POSIXct")
+  expect_equal(datetime_stats$min, timestamps[[1]])
+  expect_equal(datetime_stats$max, timestamps[[4]])
+
+  distribution <- summary_df$distribution_data[[1]]
+  expect_identical(distribution$value_type, "datetime")
+  expect_s3_class(distribution$ranges$left, "POSIXct")
+})
+
+test_that("non-finite numeric values are excluded from stats and histograms", {
+  df <- data.frame(value = c(1, 2, Inf, -Inf, NaN, NA))
+
+  summary_df <- summarize_columns(df)
+  numeric_stats <- summary_df$summary_stats[[1]]
+
+  expect_equal(summary_df$n_missing[[1]], 2L)
+  expect_equal(numeric_stats$min, 1)
+  expect_equal(numeric_stats$max, 2)
+  expect_equal(numeric_stats$mean, 1.5)
+  expect_equal(summary_df$distribution_data[[1]]$total, 2L)
+})
+
+test_that("unsupported column classes error clearly", {
+  df <- data.frame(value = I(list(1:2, 3:4)))
+
+  expect_error(
+    summarize_columns(df),
+    "Unsupported column types detected"
+  )
 })

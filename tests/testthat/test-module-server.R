@@ -70,12 +70,28 @@ test_that("module server updates rendered outputs when data changes", {
 
 test_that("validate_data_frame rejects invalid inputs", {
   expect_error(validate_data_frame(NULL), "Data is not available")
-  expect_error(validate_data_frame(list(a = 1)), "`data` must be a data.frame", fixed = TRUE)
-  expect_error(validate_data_frame(data.frame()), "Dataset must contain at least one column")
+  expect_error(
+    validate_data_frame(list(a = 1)),
+    "`data` must be a data.frame",
+    fixed = TRUE
+  )
+  expect_error(
+    validate_data_frame(data.frame()),
+    "Dataset must contain at least one column"
+  )
 })
 
 test_that("validate_summary_card_fn rejects invalid inputs", {
-  expect_error(validate_summary_card_fn("not a function"), "`summary_card_fn` must be a function.", fixed = TRUE)
+  expect_error(
+    validate_summary_card_fn("not a function"),
+    "`summary_card_fn` must be a function.",
+    fixed = TRUE
+  )
+  expect_error(
+    validate_summary_card_fn(function(summary_row) summary_row),
+    "must accept at least `summary_row` and `index`",
+    fixed = TRUE
+  )
 })
 
 test_that("module server respects top_n and table customization hooks", {
@@ -141,5 +157,43 @@ test_that("module server uses custom summary card function", {
       expect_match(summary_html, "1-value")
       expect_no_match(summary_html, "de-var-card")
     }
+  )
+})
+
+test_that("module server rejects unsupported column classes", {
+  input_df <- data.frame(value = I(list(1:2, 3:4)))
+
+  shiny::testServer(
+    data_viewer_server,
+    args = list(
+      id = "viewer",
+      data = shiny::reactive(input_df)
+    ),
+    {
+      expect_error(output$summary_panel, "Unsupported column types detected")
+    }
+  )
+})
+
+test_that("table argument validators reject invalid inputs", {
+  expect_error(
+    validate_page_size_options(c(10, 0)),
+    "`page_size_options` must contain positive integers.",
+    fixed = TRUE
+  )
+  expect_error(
+    validate_page_size_options(numeric(0)),
+    "`page_size_options` must be a non-empty numeric vector.",
+    fixed = TRUE
+  )
+  expect_error(
+    validate_default_page_size(12, c(10L, 25L)),
+    "`default_page_size` must be one of `page_size_options`.",
+    fixed = TRUE
+  )
+  expect_error(
+    validate_default_page_size(NA, c(10L, 25L)),
+    "`default_page_size` must be a single positive integer or NULL.",
+    fixed = TRUE
   )
 })

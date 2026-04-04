@@ -1,29 +1,40 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# `{shinydataviewer}`
+# shinydataviewer <img src="man/figures/logo-direct-primary.png" align="right" width="280" alt="shinydataviewer hex sticker logo" />
 
 <!-- badges: start -->
 
+[![R-CMD-check](https://github.com/Ryan-W-Harrison/shinydataviewer/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Ryan-W-Harrison/shinydataviewer/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 `shinydataviewer` provides a reusable Shiny module for viewing tabular
 data with a searchable table and a variable summary sidebar inspired by
 the Positron data viewer.
 
+<p align="center">
+
+<img src="man/figures/screenshot.png" alt="Screenshot of the shinydataviewer interface" width="100%" />
+</p>
+
 ## Installation
 
-You can install the development version of `{shinydataviewer}` from
-GitHub:
+Install `shinydataviewer` from CRAN:
 
 ``` r
-pak::pak("Ryan-W-Harrison/data-explorer-module")
+install.packages("shinydataviewer")
+```
+
+You can install the development version from GitHub:
+
+``` r
+pak::pak("Ryan-W-Harrison/shinydataviewer")
 ```
 
 ## Package interface
 
-The package is designed to be used as a reusable Shiny module. The main
-exported functions are:
+`shinydataviewer` is designed to be used as a reusable Shiny module. The
+main exported functions are:
 
 - `data_viewer_ui(id)`
 - `data_viewer_server(id, data)`
@@ -31,10 +42,12 @@ exported functions are:
 - `summarize_columns(df)`
 
 `data` should be a reactive expression that returns a `data.frame`.
+Supported column classes are numeric, integer, character, factor,
+logical, `Date`, and `POSIXct`/`POSIXt`.
 
 ## Minimal module example
 
-Use the module directly when you want the explorer layout to manage its
+Use the module directly when you want the viewer layout to manage its
 own main table region:
 
 ``` r
@@ -125,6 +138,7 @@ variable panel, you can call `summarize_columns()` directly:
 summarize_columns(iris)
 ```
 
-## About
-
-You are reading documentation for version 0.0.0.9000.
+The returned data frame has one row per input column. Its
+`summary_stats` and `distribution_data` list-columns contain the same
+precomputed payloads used by the sidebar cards, including compact
+statistics, histogram bins, and top-level categorical counts.

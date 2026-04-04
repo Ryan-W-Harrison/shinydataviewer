@@ -10,7 +10,10 @@ test_that("summarize_columns returns expected metadata for mixed data", {
   summary_df <- summarize_columns(df, top_n = 1)
 
   expect_equal(nrow(summary_df), 4)
-  expect_equal(unname(summary_df$type), c("numeric", "character", "logical", "date"))
+  expect_equal(
+    unname(summary_df$type),
+    c("numeric", "character", "logical", "date")
+  )
   expect_equal(unname(summary_df$n_missing), c(1L, 1L, 1L, 1L))
   expect_equal(unname(summary_df$n_unique), c(3L, 2L, 2L, 3L))
 
@@ -26,7 +29,10 @@ test_that("summarize_columns returns expected metadata for mixed data", {
 })
 
 test_that("categorical distributions collapse extra levels into Other", {
-  df <- data.frame(category = c("a", "b", "c", "d", "a", "b", "e"), stringsAsFactors = FALSE)
+  df <- data.frame(
+    category = c("a", "b", "c", "d", "a", "b", "e"),
+    stringsAsFactors = FALSE
+  )
 
   summary_df <- summarize_columns(df, top_n = 2)
   counts <- summary_df$distribution_data[[1]]$counts
@@ -36,7 +42,9 @@ test_that("categorical distributions collapse extra levels into Other", {
   expect_equal(summary_df$distribution_data[[1]]$total, 7L)
 
   top_levels <- summary_df$summary_stats[[1]]$top_levels
-  expect_equal(top_levels$pct, c(2 / 7, 2 / 7, 1 / 7, 1 / 7, 1 / 7))
+  expect_equal(top_levels$level, c("a", "b"))
+  expect_equal(top_levels$count, c(2L, 2L))
+  expect_equal(top_levels$pct, c(2 / 7, 2 / 7))
 })
 
 test_that("numeric histogram metadata includes ranges and totals", {
@@ -50,4 +58,17 @@ test_that("numeric histogram metadata includes ranges and totals", {
   expect_equal(nrow(distribution$ranges), length(distribution$bins))
   expect_equal(distribution$total, 5L)
   expect_identical(distribution$value_type, "numeric")
+})
+
+test_that("top_n validator rejects invalid values", {
+  expect_error(
+    summarize_columns(data.frame(value = 1:3), top_n = 0),
+    "`top_n` must be a single positive integer.",
+    fixed = TRUE
+  )
+  expect_error(
+    summarize_columns(data.frame(value = 1:3), top_n = 1.5),
+    "`top_n` must be a single positive integer.",
+    fixed = TRUE
+  )
 })

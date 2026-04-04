@@ -36,8 +36,8 @@ data_viewer_ui <- function(
 ) {
   table_controls_position <- match.arg(table_controls_position)
 
-  with_data_explorer_deps(
-    data_explorer_layout_ui(
+  with_data_viewer_deps(
+    data_viewer_layout_ui(
       id,
       standalone = standalone,
       table_title = table_title,
@@ -47,7 +47,7 @@ data_viewer_ui <- function(
   )
 }
 
-data_explorer_layout_ui <- function(
+data_viewer_layout_ui <- function(
   id,
   standalone = TRUE,
   table_title = NULL,
@@ -55,7 +55,11 @@ data_explorer_layout_ui <- function(
 ) {
   ns <- shiny::NS(id)
   table_region <- if (standalone) {
-    card_header <- if (is.null(table_title)) NULL else bslib::card_header(table_title)
+    card_header <- if (is.null(table_title)) {
+      NULL
+    } else {
+      bslib::card_header(table_title)
+    }
 
     bslib::card(
       full_screen = TRUE,
@@ -139,7 +143,7 @@ data_viewer_card_ui <- function(
   table_controls_position <- match.arg(table_controls_position)
   card_header <- if (is.null(title)) NULL else bslib::card_header(title)
 
-  with_data_explorer_deps(
+  with_data_viewer_deps(
     bslib::card(
       class = "de-module-card",
       full_screen = full_screen,
@@ -148,7 +152,7 @@ data_viewer_card_ui <- function(
       bslib::card_body(
         class = "de-module-card__body",
         fill = TRUE,
-        data_explorer_layout_ui(
+        data_viewer_layout_ui(
           id,
           standalone = FALSE,
           sidebar_title = sidebar_title
@@ -162,7 +166,9 @@ data_viewer_card_ui <- function(
 #' Data Viewer Module Server
 #'
 #' @param id Module id.
-#' @param data Reactive returning a data frame.
+#' @param data Reactive returning a data frame. Supported column classes are
+#'   numeric, integer, character, factor, logical, `Date`, and
+#'   `POSIXct`/`POSIXt`.
 #' @param top_n Maximum number of categorical levels to keep in compact summary
 #'   views before collapsing the remainder into `"Other"`.
 #' @param default_page_size Optional default number of rows to show in the table.
@@ -172,7 +178,7 @@ data_viewer_card_ui <- function(
 #' @param filterable Whether column filters are enabled.
 #' @param sortable Whether column sorting is enabled.
 #' @param summary_card_fn Function used to render each variable summary card.
-#'   It must accept `(summary_row, index)` and return a Shiny UI tag.
+#'   It must accept at least `(summary_row, index)` and return a Shiny UI tag.
 #' @param reactable_theme Optional `reactable::reactableTheme()` object. If
 #'   `NULL`, the module uses its built-in theme.
 #' @param default_col_def Optional default `reactable::colDef()` to apply to all
@@ -180,7 +186,7 @@ data_viewer_card_ui <- function(
 #' @param reactable_args Optional named list of additional arguments passed to
 #'   `reactable::reactable()`. These values override the module defaults.
 #'
-#' @return Invisibly returns a list of reactives.
+#' @return Invisibly returns a list of reactives named `data` and `summary`.
 #'
 #' @examples
 #' custom_summary_card <- function(summary_row, index) {
@@ -225,6 +231,9 @@ data_viewer_server <- function(
   reactable_args = list()
 ) {
   shiny::moduleServer(id, function(input, output, session) {
+    validate_top_n(top_n)
+    page_size_options <- validate_page_size_options(page_size_options)
+    validate_default_page_size(default_page_size, page_size_options)
     validate_summary_card_fn(summary_card_fn)
 
     dataset <- shiny::reactive({
@@ -266,10 +275,11 @@ data_viewer_server <- function(
         page_size_options = page_size_options
       )
       table_theme <- reactable_theme %||% default_reactable_theme()
-      col_def <- default_col_def %||% reactable::colDef(
-        minWidth = 120,
-        headerClass = "de-table-header"
-      )
+      col_def <- default_col_def %||%
+        reactable::colDef(
+          minWidth = 120,
+          headerClass = "de-table-header"
+        )
       table_args <- utils::modifyList(
         list(
           data = df,
@@ -311,6 +321,17 @@ validate_summary_card_fn <- function(x) {
     stop("`summary_card_fn` must be a function.", call. = FALSE)
   }
 
+  fn_formals <- formals(args(x))
+  formal_names <- names(fn_formals)
+  has_dots <- "..." %in% formal_names
+
+  if (!has_dots && length(formal_names) < 2) {
+    stop(
+      "`summary_card_fn` must accept at least `summary_row` and `index`.",
+      call. = FALSE
+    )
+  }
+
   invisible(x)
 }
 
@@ -324,11 +345,24 @@ validate_data_frame <- function(x) {
   }
 
   if (ncol(x) == 0) {
-    shiny::validate(shiny::need(FALSE, "Dataset must contain at least one column."))
+    shiny::validate(shiny::need(
+      FALSE,
+      "Dataset must contain at least one column."
+    ))
+  }
+
+  unsupported_message <- unsupported_columns_message(x)
+
+  if (!is.null(unsupported_message)) {
+    shiny::validate(shiny::need(FALSE, unsupported_message))
   }
 }
 
-resolve_default_page_size <- function(n_rows, default_page_size = NULL, page_size_options = c(15, 25, 50, 100)) {
+resolve_default_page_size <- function(
+  n_rows,
+  default_page_size = NULL,
+  page_size_options = c(15, 25, 50, 100)
+) {
   if (!is.null(default_page_size)) {
     return(max(1L, as.integer(default_page_size[[1]])))
   }
@@ -337,12 +371,81 @@ resolve_default_page_size <- function(n_rows, default_page_size = NULL, page_siz
   min(max(1L, n_rows), max_default)
 }
 
+validate_page_size_options <- function(x) {
+  if (!is.numeric(x) || length(x) == 0 || anyNA(x)) {
+    stop("`page_size_options` must be a non-empty numeric vector.", call. = FALSE)
+  }
+
+  if (any(x < 1) || !isTRUE(all.equal(x, round(x)))) {
+    stop("`page_size_options` must contain positive integers.", call. = FALSE)
+  }
+
+  unique(as.integer(x))
+}
+
+validate_default_page_size <- function(default_page_size, page_size_options) {
+  if (is.null(default_page_size)) {
+    return(invisible(NULL))
+  }
+
+  if (!is.numeric(default_page_size) ||
+      length(default_page_size) != 1 ||
+      is.na(default_page_size)) {
+    stop("`default_page_size` must be a single positive integer or NULL.", call. = FALSE)
+  }
+
+  if (default_page_size < 1 ||
+      !isTRUE(all.equal(default_page_size, round(default_page_size)))) {
+    stop("`default_page_size` must be a single positive integer or NULL.", call. = FALSE)
+  }
+
+  if (!(as.integer(default_page_size) %in% page_size_options)) {
+    stop(
+      "`default_page_size` must be one of `page_size_options`.",
+      call. = FALSE
+    )
+  }
+
+  invisible(as.integer(default_page_size))
+}
+
+unsupported_columns_message <- function(df) {
+  unsupported <- names(df)[!vapply(df, is_supported_column, logical(1))]
+
+  if (length(unsupported) == 0) {
+    return(NULL)
+  }
+
+  unsupported_labels <- vapply(
+    unsupported,
+    function(name) {
+      sprintf(
+        "%s <%s>",
+        name,
+        paste(class(df[[name]]), collapse = "/")
+      )
+    },
+    character(1)
+  )
+
+  sprintf(
+    paste(
+      "Unsupported column types detected.",
+      "Supported types are numeric, integer, character, factor, logical, Date, and POSIXct/POSIXt.",
+      "Problem columns: %s"
+    ),
+    paste(unsupported_labels, collapse = ", ")
+  )
+}
+
 default_reactable_theme <- function() {
   reactable::reactableTheme(
     borderColor = "var(--bs-border-color)",
     stripedColor = "color-mix(in srgb, var(--bs-body-bg) 88%, white 12%)",
     highlightColor = "rgba(var(--bs-primary-rgb), 0.08)",
-    rowSelectedStyle = list(backgroundColor = "rgba(var(--bs-primary-rgb), 0.14)"),
+    rowSelectedStyle = list(
+      backgroundColor = "rgba(var(--bs-primary-rgb), 0.14)"
+    ),
     searchInputStyle = list(width = "100%"),
     cellPadding = "0.65rem 0.75rem",
     style = list(
