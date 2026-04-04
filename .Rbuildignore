@@ -16,3 +16,4 @@ $run_dev.*
 air.toml
 jarl.toml
 walkthrough.md
+^cran-comments\.md$

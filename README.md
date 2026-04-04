@@ -8,7 +8,7 @@
 [![R-CMD-check](https://github.com/Ryan-W-Harrison/shinydataviewer/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Ryan-W-Harrison/shinydataviewer/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-shinydataviewer provides a reusable Shiny module for viewing tabular
+`shinydataviewer` provides a reusable Shiny module for viewing tabular
 data with a searchable table and a variable summary sidebar inspired by
 the Positron data viewer.
 
@@ -33,8 +33,8 @@ pak::pak("Ryan-W-Harrison/shinydataviewer")
 
 ## Package interface
 
-The package is designed to be used as a reusable Shiny module. The main
-exported functions are:
+`shinydataviewer` is designed to be used as a reusable Shiny module. The
+main exported functions are:
 
 - `data_viewer_ui(id)`
 - `data_viewer_server(id, data)`
