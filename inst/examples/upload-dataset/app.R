@@ -35,6 +35,7 @@ ui <- page_navbar(
       data_viewer_card_ui(
         "viewer",
         title = "Dataset",
+        plot_color = NULL,
         sidebar_title = "Variables"
       )
     )
