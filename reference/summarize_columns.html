@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">shinydataviewer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9003</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9004</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -74,6 +74,24 @@ containing per-type summary values used by the details accordion.
 categorical count payloads used by the compact mini charts.</p>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">column_summary</span> <span class="op">&lt;-</span> <span class="fu">summarize_columns</span><span class="op">(</span><span class="va">iris</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">column_summary</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="st">"var_name"</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"type"</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"n_missing"</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"pct_missing"</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"n_unique"</span></span></span>
+<span class="r-in"><span><span class="op">)</span><span class="op">]</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                  var_name    type n_missing pct_missing n_unique</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Sepal.Length Sepal.Length numeric         0           0       35</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Sepal.Width   Sepal.Width numeric         0           0       23</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Petal.Length Petal.Length numeric         0           0       43</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Petal.Width   Petal.Width numeric         0           0       22</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Species           Species  factor         0           0        3</span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 
