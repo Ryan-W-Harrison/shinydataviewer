@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="index.html">shinydataviewer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -170,6 +170,7 @@
 <h2 id="theming-and-branding">Theming and branding<a class="anchor" aria-label="anchor" href="#theming-and-branding"></a>
 </h2>
 <p>The viewer styles are attached as a package dependency and use Bootstrap 5 theme variables instead of fixed colors. In practice, that means the module will follow the active <code>bslib</code> theme and should pick up branding supplied through <code><a href="https://rstudio.github.io/bslib/reference/bs_theme.html" class="external-link">bs_theme()</a></code> or a <code>brand.yml</code>-driven theme without additional module-specific configuration.</p>
+<p>The viewer also follows live Bootstrap color-mode changes made with <code><a href="https://rstudio.github.io/bslib/reference/input_dark_mode.html" class="external-link">bslib::input_dark_mode()</a></code> or <code><a href="https://rstudio.github.io/bslib/reference/input_dark_mode.html" class="external-link">bslib::toggle_dark_mode()</a></code>, including its <code>reactable</code> table and variable-summary sidebar.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rstudio.github.io/bslib/reference/page_fillable.html" class="external-link">page_fillable</a></span><span class="op">(</span></span>
 <span>  theme <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/bslib/reference/bs_theme.html" class="external-link">bs_theme</a></span><span class="op">(</span></span>

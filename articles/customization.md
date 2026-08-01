@@ -102,6 +102,11 @@ one of the supported viewer types.
 The module styles use Bootstrap variables, so they follow the active
 `bslib` theme and `brand.yml` values automatically.
 
+They also respond to live light and dark mode changes from
+[`bslib::input_dark_mode()`](https://rstudio.github.io/bslib/reference/input_dark_mode.html)
+and
+[`bslib::toggle_dark_mode()`](https://rstudio.github.io/bslib/reference/input_dark_mode.html).
+
 ``` r
 
 ui <- page_fillable(

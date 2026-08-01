@@ -25,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">shinydataviewer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -162,6 +162,9 @@ corresponds to one of the supported viewer types.</p>
 <p>The module styles use Bootstrap variables, so they follow the active
 <code>bslib</code> theme and <code>brand.yml</code> values
 automatically.</p>
+<p>They also respond to live light and dark mode changes from
+<code><a href="https://rstudio.github.io/bslib/reference/input_dark_mode.html" class="external-link">bslib::input_dark_mode()</a></code> and
+<code><a href="https://rstudio.github.io/bslib/reference/input_dark_mode.html" class="external-link">bslib::toggle_dark_mode()</a></code>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rstudio.github.io/bslib/reference/page_fillable.html" class="external-link">page_fillable</a></span><span class="op">(</span></span>
 <span>  theme <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/bslib/reference/bs_theme.html" class="external-link">bs_theme</a></span><span class="op">(</span>version <span class="op">=</span> <span class="fl">5</span>, brand <span class="op">=</span> <span class="st">"brand.yml"</span><span class="op">)</span>,</span>
