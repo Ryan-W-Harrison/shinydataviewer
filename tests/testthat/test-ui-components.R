@@ -69,6 +69,13 @@ test_that("default table styles use Bootstrap color-mode variables", {
   expect_match(stylesheet, "\\.de-root \\.rt-search")
   expect_match(stylesheet, "background-color: var\\(--bs-body-bg\\)")
   expect_match(stylesheet, "color: var\\(--bs-body-color\\)")
+  expect_match(
+    stylesheet,
+    paste0(
+      "\\.de-root \\.de-module-card \\{[^}]*",
+      "background: var\\(--bs-card-bg, var\\(--bs-body-bg\\)\\)"
+    )
+  )
 })
 
 test_that("variable summary cards expose tooltip-enabled chart bars", {

@@ -49,10 +49,16 @@
 }
 
 .de-root .de-table-card,
-.de-root .de-module-card,
 .de-root .de-var-card,
 .de-root .de-empty-card {
   background: transparent;
+  border: 0;
+  border-radius: 1rem;
+  box-shadow: none;
+}
+
+.de-root .de-module-card {
+  background: var(--bs-card-bg, var(--bs-body-bg));
   border: 0;
   border-radius: 1rem;
   box-shadow: none;
