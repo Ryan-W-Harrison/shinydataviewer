@@ -7,6 +7,8 @@
 - Add new example that lets user upload data
 - Fix bug when categorical column is completely missing
 - Add bslib dark mode compatibility
+- Fix transparent backgrounds between card elements when in fullscreen
+  mode
 
 ## shinydataviewer 0.1.0
 
