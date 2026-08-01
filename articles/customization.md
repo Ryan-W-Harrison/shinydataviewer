@@ -63,6 +63,23 @@ data_viewer_card_ui(
 )
 ```
 
+## Summary plot color
+
+Use `plot_color` on either UI helper to set one CSS color for all
+variable summary plots in that viewer. Any CSS color is supported,
+including Bootstrap theme variables:
+
+``` r
+
+data_viewer_card_ui(
+  "viewer",
+  plot_color = "var(--bs-success)"
+)
+```
+
+When `plot_color` is `NULL`, the plots use the active Bootstrap primary
+color.
+
 ## Custom summary cards
 
 Use `summary_card_fn` to replace the default variable card renderer
