@@ -15,15 +15,51 @@ data_viewer_dependency <- function() {
 }
 
 #' @noRd
-with_data_viewer_deps <- function(..., root_class = NULL) {
+with_data_viewer_deps <- function(..., root_class = NULL, root_style = NULL) {
   root_classes <- paste(c("de-root", root_class), collapse = " ")
 
   htmltools::tagList(
     htmltools::attachDependencies(
-      htmltools::tags$div(class = root_classes, ...),
+      htmltools::tags$div(class = root_classes, style = root_style, ...),
       data_viewer_dependency()
     )
   )
+}
+
+#' @noRd
+plot_color_style <- function(plot_color) {
+  if (is.null(plot_color)) {
+    return(NULL)
+  }
+
+  plot_color <- validate_plot_color(plot_color)
+  htmltools::css(`--de-plot-color` = plot_color)
+}
+
+#' @noRd
+validate_plot_color <- function(plot_color) {
+  if (
+    !is.character(plot_color) ||
+      length(plot_color) != 1 ||
+      is.na(plot_color) ||
+      !nzchar(trimws(plot_color))
+  ) {
+    stop(
+      "`plot_color` must be NULL or a non-empty CSS color string.",
+      call. = FALSE
+    )
+  }
+
+  plot_color <- trimws(plot_color)
+
+  if (grepl("[;{}\r\n]", plot_color)) {
+    stop(
+      "`plot_color` must not contain CSS declaration delimiters.",
+      call. = FALSE
+    )
+  }
+
+  plot_color
 }
 
 #' @noRd

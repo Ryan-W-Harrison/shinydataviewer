@@ -51,6 +51,79 @@ test_that("module UI supports bottom-positioned table controls", {
   expect_no_match(ui_text, "de-root--controls-top")
 })
 
+test_that("UI helpers scope custom plot colors to the viewer root", {
+  colors <- c(
+    "#2c7fb8",
+    "rebeccapurple",
+    "rgb(44 127 184)",
+    "var(--bs-success)"
+  )
+
+  for (color in colors) {
+    module_ui <- paste(
+      as.character(data_viewer_ui("module", plot_color = color)),
+      collapse = "\n"
+    )
+    card_ui <- paste(
+      as.character(data_viewer_card_ui("card", plot_color = color)),
+      collapse = "\n"
+    )
+
+    expected_style <- paste0("--de-plot-color:", color, ";")
+    expect_match(module_ui, expected_style, fixed = TRUE)
+    expect_match(card_ui, expected_style, fixed = TRUE)
+  }
+
+  default_ui <- paste(as.character(data_viewer_ui("default")), collapse = "\n")
+  expect_no_match(default_ui, "--de-plot-color", fixed = TRUE)
+})
+
+test_that("plot colors do not leak between viewer roots", {
+  first <- paste(
+    as.character(data_viewer_ui("first", plot_color = "red")),
+    collapse = "\n"
+  )
+  second <- paste(
+    as.character(data_viewer_ui("second", plot_color = "blue")),
+    collapse = "\n"
+  )
+
+  expect_match(first, "--de-plot-color:red;", fixed = TRUE)
+  expect_no_match(first, "--de-plot-color:blue;", fixed = TRUE)
+  expect_match(second, "--de-plot-color:blue;", fixed = TRUE)
+  expect_no_match(second, "--de-plot-color:red;", fixed = TRUE)
+})
+
+test_that("plot color validation rejects invalid and unsafe values", {
+  invalid_values <- list(
+    character(),
+    c("red", "blue"),
+    1,
+    TRUE,
+    NA_character_,
+    "",
+    "   "
+  )
+
+  for (value in invalid_values) {
+    expect_error(
+      data_viewer_ui("viewer", plot_color = value),
+      "`plot_color` must be NULL or a non-empty CSS color string.",
+      fixed = TRUE
+    )
+  }
+
+  unsafe_values <- c("red;color:black", "red{color:black}", "red\nblue")
+
+  for (value in unsafe_values) {
+    expect_error(
+      data_viewer_card_ui("viewer", plot_color = value),
+      "`plot_color` must not contain CSS declaration delimiters.",
+      fixed = TRUE
+    )
+  }
+})
+
 test_that("default table styles use Bootstrap color-mode variables", {
   theme <- default_reactable_theme()
 
@@ -69,6 +142,11 @@ test_that("default table styles use Bootstrap color-mode variables", {
   expect_match(stylesheet, "\\.de-root \\.rt-search")
   expect_match(stylesheet, "background-color: var\\(--bs-body-bg\\)")
   expect_match(stylesheet, "color: var\\(--bs-body-color\\)")
+  expect_match(stylesheet, "--de-plot-color: var\\(--bs-primary\\)")
+  expect_match(
+    stylesheet,
+    "color-mix\\(in srgb, var\\(--de-plot-color\\) 95%, transparent\\)"
+  )
   expect_match(
     stylesheet,
     paste0(
