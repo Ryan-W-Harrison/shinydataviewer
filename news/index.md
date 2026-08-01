@@ -1,8 +1,10 @@
 # Changelog
 
-## shinydataviewer 0.1.0
+## shinydataviewer (development version)
 
-CRAN release: 2026-04-09
+- Add support for datetimes
+- Add ‘hms’ to Suggests
+- Add new example that lets user uplaod data
 
 ## shinydataviewer 0.1.0
 

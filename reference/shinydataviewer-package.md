@@ -36,3 +36,7 @@ Useful links:
 
 **Maintainer**: Ryan Harrison <harrison.ryan.w@gmail.com> \[copyright
 holder\]
+
+Authors:
+
+- Ryan Harrison <harrison.ryan.w@gmail.com> \[copyright holder\]

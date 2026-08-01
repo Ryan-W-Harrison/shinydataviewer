@@ -12,12 +12,14 @@ interface](reference/figures/screenshot.png)
 Install `shinydataviewer` from CRAN:
 
 ``` r
+
 install.packages("shinydataviewer")
 ```
 
 You can install the development version from GitHub:
 
 ``` r
+
 pak::pak("Ryan-W-Harrison/shinydataviewer")
 ```
 
@@ -33,7 +35,7 @@ main exported functions are:
 
 `data` should be a reactive expression that returns a `data.frame`.
 Supported column classes are numeric, integer, character, factor,
-logical, `Date`, and `POSIXct`/`POSIXt`.
+logical, `Date`, `POSIXct`/`POSIXt`, and `hms`/`difftime`.
 
 ## Minimal module example
 
@@ -41,6 +43,7 @@ Use the module directly when you want the viewer layout to manage its
 own main table region:
 
 ``` r
+
 library(shiny)
 library(bslib)
 library(shinydataviewer)
@@ -68,6 +71,7 @@ when the viewer needs to live inside a larger dashboard or reporting
 layout:
 
 ``` r
+
 library(shiny)
 library(bslib)
 library(shinydataviewer)
@@ -103,6 +107,26 @@ shinyApp(ui, server)
 An additional runnable example is included at
 `inst/examples/embedded-card-example.R`.
 
+## Upload example
+
+The app in `inst/examples/upload-dataset/` lets users upload a CSV or
+RDS file and displays the resulting data frame in a `shinydataviewer`
+card. Run it from a package checkout with:
+
+``` r
+
+shiny::runApp("inst/examples/upload-dataset")
+```
+
+For an installed copy of the package, use:
+
+``` r
+
+shiny::runApp(
+  system.file("examples/upload-dataset", package = "shinydataviewer")
+)
+```
+
 ## Theming and branding
 
 The viewer styles are attached as a package dependency and use Bootstrap
@@ -114,6 +138,7 @@ or a `brand.yml`-driven theme without additional module-specific
 configuration.
 
 ``` r
+
 ui <- page_fillable(
   theme = bs_theme(
     version = 5,
@@ -131,6 +156,7 @@ variable panel, you can call
 directly:
 
 ``` r
+
 summarize_columns(iris)
 ```
 

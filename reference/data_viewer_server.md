@@ -30,7 +30,8 @@ data_viewer_server(
 - data:
 
   Reactive returning a data frame. Supported column classes are numeric,
-  integer, character, factor, logical, `Date`, and `POSIXct`/`POSIXt`.
+  integer, character, factor, logical, `Date`, and `POSIXct`/`POSIXt`,
+  and `hms`/`difftime`.
 
 - top_n:
 

@@ -13,7 +13,8 @@ summarize_columns(df, top_n = 6)
 - df:
 
   A data frame to summarize. Supported column classes are numeric,
-  integer, character, factor, logical, `Date`, and `POSIXct`/`POSIXt`.
+  integer, character, factor, logical, `Date`, `POSIXct`/`POSIXt`, and
+  `hms`/`difftime`.
 
 - top_n:
 

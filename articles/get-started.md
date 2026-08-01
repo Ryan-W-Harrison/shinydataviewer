@@ -1,6 +1,7 @@
 # Get Started
 
 ``` r
+
 library(shinydataviewer)
 library(shiny)
 library(bslib)
@@ -19,9 +20,9 @@ with:
 - Bootstrap 5 compatible styling via `bslib`
 
 The module supports data frames with numeric, integer, character,
-factor, logical, `Date`, and `POSIXct`/`POSIXt` columns. Non-finite
-numeric values such as `Inf`, `-Inf`, and `NaN` are excluded from
-numeric summary statistics and histogram bins.
+factor, logical, `Date`, `POSIXct`/`POSIXt`, and `hms`/`difftime`
+columns. Non-finite numeric values such as `Inf`, `-Inf`, and `NaN` are
+excluded from numeric summary statistics and histogram bins.
 
 ## Interface preview
 
@@ -38,6 +39,7 @@ Use
 when the viewer should manage its own table card.
 
 ``` r
+
 ui <- page_fillable(
   theme = bs_theme(version = 5),
   data_viewer_ui("viewer")
@@ -60,6 +62,7 @@ Use
 when the viewer belongs inside another layout.
 
 ``` r
+
 ui <- page_fillable(
   theme = bs_theme(version = 5),
   layout_columns(
@@ -92,6 +95,7 @@ The variable sidebar is backed by
 [`summarize_columns()`](https://ryan-w-harrison.github.io/shinydataviewer/reference/summarize_columns.md).
 
 ``` r
+
 summary_df <- summarize_columns(head(iris), top_n = 4)
 
 summary_df[c("var_name", "type", "n_missing", "n_unique")]
@@ -113,3 +117,12 @@ counts, and compact histogram metadata.
 
 A runnable embedded example is included at
 `inst/examples/embedded-card-example.R`.
+
+The app in `inst/examples/upload-dataset/` provides a simple file-upload
+example. It accepts CSV or RDS files and displays the uploaded data
+frame in a `shinydataviewer` card:
+
+``` r
+
+shiny::runApp("inst/examples/upload-dataset")
+```

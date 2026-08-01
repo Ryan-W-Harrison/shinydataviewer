@@ -1,6 +1,7 @@
 # Customization
 
 ``` r
+
 library(shinydataviewer)
 library(shiny)
 library(bslib)
@@ -35,6 +36,7 @@ overrides, use `reactable_args`.
 integers.
 
 ``` r
+
 data_viewer_server(
   "viewer",
   data = reactive(mtcars),
@@ -54,6 +56,7 @@ data_viewer_server(
 The UI helpers support top or bottom table controls:
 
 ``` r
+
 data_viewer_card_ui(
   "viewer",
   table_controls_position = "bottom"
@@ -70,6 +73,7 @@ where `summary_row` is a one-row data frame produced by
 [`summarize_columns()`](https://ryan-w-harrison.github.io/shinydataviewer/reference/summarize_columns.md).
 
 ``` r
+
 custom_summary_card <- function(summary_row, index) {
   htmltools::tags$div(
     class = "custom-summary-card",
@@ -99,6 +103,7 @@ The module styles use Bootstrap variables, so they follow the active
 `bslib` theme and `brand.yml` values automatically.
 
 ``` r
+
 ui <- page_fillable(
   theme = bs_theme(version = 5, brand = "brand.yml"),
   data_viewer_card_ui("viewer")
