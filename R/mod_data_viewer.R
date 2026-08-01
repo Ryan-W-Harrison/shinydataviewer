@@ -454,7 +454,7 @@ unsupported_columns_message <- function(df) {
 default_reactable_theme <- function() {
   reactable::reactableTheme(
     borderColor = "var(--bs-border-color)",
-    stripedColor = "color-mix(in srgb, var(--bs-body-bg) 88%, white 12%)",
+    stripedColor = "color-mix(in srgb, var(--bs-body-bg) 94%, var(--bs-body-color) 6%)",
     highlightColor = "rgba(var(--bs-primary-rgb), 0.08)",
     rowSelectedStyle = list(
       backgroundColor = "rgba(var(--bs-primary-rgb), 0.14)"
