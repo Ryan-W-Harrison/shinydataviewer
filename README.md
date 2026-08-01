@@ -111,6 +111,24 @@ shinyApp(ui, server)
 An additional runnable example is included at
 `inst/examples/embedded-card-example.R`.
 
+## Upload example
+
+The app in `inst/examples/upload-dataset/` lets users upload a CSV or
+RDS file and displays the resulting data frame in a `shinydataviewer`
+card. Run it from a package checkout with:
+
+``` r
+shiny::runApp("inst/examples/upload-dataset")
+```
+
+For an installed copy of the package, use:
+
+``` r
+shiny::runApp(
+  system.file("examples/upload-dataset", package = "shinydataviewer")
+)
+```
+
 ## Theming and branding
 
 The viewer styles are attached as a package dependency and use Bootstrap

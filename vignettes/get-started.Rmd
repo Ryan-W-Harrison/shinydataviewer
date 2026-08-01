@@ -107,3 +107,11 @@ compact histogram metadata.
 
 A runnable embedded example is included at
 `inst/examples/embedded-card-example.R`.
+
+The app in `inst/examples/upload-dataset/` provides a simple file-upload
+example. It accepts CSV or RDS files and displays the uploaded data frame in a
+`shinydataviewer` card:
+
+```{r, eval=FALSE}
+shiny::runApp("inst/examples/upload-dataset")
+```
