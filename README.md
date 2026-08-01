@@ -43,7 +43,7 @@ main exported functions are:
 
 `data` should be a reactive expression that returns a `data.frame`.
 Supported column classes are numeric, integer, character, factor,
-logical, `Date`, and `POSIXct`/`POSIXt`.
+logical, `Date`, `POSIXct`/`POSIXt`, and `hms`/`difftime`.
 
 ## Minimal module example
 

@@ -80,6 +80,25 @@ test_that("POSIXct columns are summarized as datetimes", {
   expect_s3_class(distribution$ranges$left, "POSIXct")
 })
 
+test_that("hms and difftime columns are summarized as times", {
+  times <- hms::as_hms(c("08:30:00", "14:15:00", NA, "09:00:00"))
+
+  summary_df <- summarize_columns(data.frame(time = times))
+
+  expect_identical(summary_df$type[[1]], "time")
+  time_stats <- summary_df$summary_stats[[1]]
+  expect_s3_class(time_stats$min, "difftime")
+  expect_equal(as.numeric(time_stats$min, units = "secs"), 8.5 * 60 * 60)
+  expect_equal(as.numeric(time_stats$median, units = "secs"), 9 * 60 * 60)
+  expect_equal(as.numeric(time_stats$max, units = "secs"), 14.25 * 60 * 60)
+
+  distribution <- summary_df$distribution_data[[1]]
+  expect_identical(distribution$value_type, "time")
+  expect_identical(distribution$kind, "histogram")
+  expect_s3_class(distribution$ranges$left, "difftime")
+  expect_equal(distribution$total, 3L)
+})
+
 test_that("non-finite numeric values are excluded from stats and histograms", {
   df <- data.frame(value = c(1, 2, Inf, -Inf, NaN, NA))
 

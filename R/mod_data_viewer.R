@@ -168,7 +168,7 @@ data_viewer_card_ui <- function(
 #' @param id Module id.
 #' @param data Reactive returning a data frame. Supported column classes are
 #'   numeric, integer, character, factor, logical, `Date`, and
-#'   `POSIXct`/`POSIXt`.
+#'   `POSIXct`/`POSIXt`, and `hms`/`difftime`.
 #' @param top_n Maximum number of categorical levels to keep in compact summary
 #'   views before collapsing the remainder into `"Other"`.
 #' @param default_page_size Optional default number of rows to show in the table.
@@ -444,7 +444,7 @@ unsupported_columns_message <- function(df) {
   sprintf(
     paste(
       "Unsupported column types detected.",
-      "Supported types are numeric, integer, character, factor, logical, Date, and POSIXct/POSIXt.",
+      "Supported types are numeric, integer, character, factor, logical, Date, POSIXct/POSIXt, and hms/difftime.",
       "Problem columns: %s"
     ),
     paste(unsupported_labels, collapse = ", ")

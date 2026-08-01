@@ -53,7 +53,7 @@ functions are:
 
 `data` should be a reactive expression that returns a `data.frame`.
 Supported column classes are numeric, integer, character, factor, logical,
-`Date`, and `POSIXct`/`POSIXt`.
+`Date`, `POSIXct`/`POSIXt`, and `hms`/`difftime`.
 
 ## Minimal module example
 
@@ -152,4 +152,3 @@ The returned data frame has one row per input column. Its `summary_stats` and
 `distribution_data` list-columns contain the same precomputed payloads used by
 the sidebar cards, including compact statistics, histogram bins, and top-level
 categorical counts.
-

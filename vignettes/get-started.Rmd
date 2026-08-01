@@ -27,7 +27,7 @@ library(bslib)
 - Bootstrap 5 compatible styling via `bslib`
 
 The module supports data frames with numeric, integer, character, factor,
-logical, `Date`, and `POSIXct`/`POSIXt` columns. Non-finite numeric values such
+logical, `Date`, `POSIXct`/`POSIXt`, and `hms`/`difftime` columns. Non-finite numeric values such
 as `Inf`, `-Inf`, and `NaN` are excluded from numeric summary statistics and
 histogram bins.
 
