@@ -9,7 +9,8 @@ data_viewer_ui(
   standalone = TRUE,
   table_title = NULL,
   sidebar_title = NULL,
-  table_controls_position = c("top", "bottom")
+  table_controls_position = c("top", "bottom"),
+  plot_color = NULL
 )
 }
 \arguments{
@@ -24,6 +25,10 @@ data_viewer_ui(
 
 \item{table_controls_position}{Where table pagination controls should appear.
 One of \code{"top"} or \code{"bottom"}.}
+
+\item{plot_color}{Optional CSS color used by the variable-summary mini plots.
+Accepts values such as \code{"#2c7fb8"}, \code{"rebeccapurple"}, \code{"rgb(44 127 184)"}, or \code{"var(--bs-success)"}. If \code{NULL}, the active Bootstrap primary
+color is used.}
 }
 \value{
 The module UI.

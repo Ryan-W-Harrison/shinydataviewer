@@ -51,6 +51,9 @@ functions are:
 - `data_viewer_card_ui(id, title = NULL)`
 - `summarize_columns(df)`
 
+Both UI helpers accept `plot_color` to customize all variable-summary mini
+plots in a viewer with any CSS color, such as `"var(--bs-success)"`.
+
 `data` should be a reactive expression that returns a `data.frame`.
 Supported column classes are numeric, integer, character, factor, logical,
 `Date`, `POSIXct`/`POSIXt`, and `hms`/`difftime`.
