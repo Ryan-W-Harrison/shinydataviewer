@@ -148,17 +148,27 @@ summarize_vector <- function(x, top_n = 6) {
   }
 
   counts <- categorical_counts(x)
-
-  list(
-    missing = n_missing,
-    n_unique = unique_non_missing(x),
-    top_levels = utils::head(
+  top_levels <- if (nrow(counts) == 0) {
+    data.frame(
+      level = character(),
+      count = integer(),
+      pct = numeric(),
+      stringsAsFactors = FALSE
+    )
+  } else {
+    utils::head(
       transform(
         counts,
         pct = safe_share(count, sum(count))
       ),
       top_n
     )
+  }
+
+  list(
+    missing = n_missing,
+    n_unique = unique_non_missing(x),
+    top_levels = top_levels
   )
 }
 
