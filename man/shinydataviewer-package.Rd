@@ -36,5 +36,10 @@ Useful links:
 \author{
 \strong{Maintainer}: Ryan Harrison \email{harrison.ryan.w@gmail.com} [copyright holder]
 
+Authors:
+\itemize{
+  \item Ryan Harrison \email{harrison.ryan.w@gmail.com} [copyright holder]
+}
+
 }
 \keyword{internal}

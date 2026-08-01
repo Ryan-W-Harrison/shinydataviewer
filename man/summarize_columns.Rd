@@ -8,7 +8,8 @@ summarize_columns(df, top_n = 6)
 }
 \arguments{
 \item{df}{A data frame to summarize. Supported column classes are numeric,
-integer, character, factor, logical, \code{Date}, and \code{POSIXct}/\code{POSIXt}.}
+integer, character, factor, logical, \code{Date}, \code{POSIXct}/\code{POSIXt}, and
+\code{hms}/\code{difftime}.}
 
 \item{top_n}{Maximum number of categorical levels to keep before collapsing
 the remainder into \code{"Other"}.}

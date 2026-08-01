@@ -43,7 +43,7 @@ main exported functions are:
 
 `data` should be a reactive expression that returns a `data.frame`.
 Supported column classes are numeric, integer, character, factor,
-logical, `Date`, and `POSIXct`/`POSIXt`.
+logical, `Date`, `POSIXct`/`POSIXt`, and `hms`/`difftime`.
 
 ## Minimal module example
 
@@ -110,6 +110,24 @@ shinyApp(ui, server)
 
 An additional runnable example is included at
 `inst/examples/embedded-card-example.R`.
+
+## Upload example
+
+The app in `inst/examples/upload-dataset/` lets users upload a CSV or
+RDS file and displays the resulting data frame in a `shinydataviewer`
+card. Run it from a package checkout with:
+
+``` r
+shiny::runApp("inst/examples/upload-dataset")
+```
+
+For an installed copy of the package, use:
+
+``` r
+shiny::runApp(
+  system.file("examples/upload-dataset", package = "shinydataviewer")
+)
+```
 
 ## Theming and branding
 
