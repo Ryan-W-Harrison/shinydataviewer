@@ -12,6 +12,16 @@
 #'   containing per-type summary values used by the details accordion.
 #'   `distribution_data` is a list-column containing precomputed histogram or
 #'   categorical count payloads used by the compact mini charts.
+#'
+#' @examples
+#' column_summary <- summarize_columns(iris)
+#' column_summary[c(
+#'   "var_name",
+#'   "type",
+#'   "n_missing",
+#'   "pct_missing",
+#'   "n_unique"
+#' )]
 #' @export
 summarize_columns <- function(df, top_n = 6) {
   stopifnot(is.data.frame(df))
