@@ -137,6 +137,10 @@ module will follow the active `bslib` theme and should pick up branding
 supplied through `bs_theme()` or a `brand.yml`-driven theme without
 additional module-specific configuration.
 
+The viewer also follows live Bootstrap color-mode changes made with
+`bslib::input_dark_mode()` or `bslib::toggle_dark_mode()`, including its
+`reactable` table and variable-summary sidebar.
+
 ``` r
 ui <- page_fillable(
   theme = bs_theme(

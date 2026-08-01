@@ -51,6 +51,26 @@ test_that("module UI supports bottom-positioned table controls", {
   expect_no_match(ui_text, "de-root--controls-top")
 })
 
+test_that("default table styles use Bootstrap color-mode variables", {
+  theme <- default_reactable_theme()
+
+  expect_identical(theme$borderColor, "var(--bs-border-color)")
+  expect_match(theme$stripedColor, "var\\(--bs-body-bg\\)")
+  expect_match(theme$stripedColor, "var\\(--bs-body-color\\)")
+  expect_identical(theme$style$color, "var(--bs-body-color)")
+  expect_identical(theme$style$backgroundColor, "var(--bs-body-bg)")
+
+  stylesheet <- paste(
+    readLines(file.path(data_viewer_www_path(), "data-viewer.css")),
+    collapse = "\n"
+  )
+
+  expect_match(stylesheet, "\\.de-root \\.Reactable")
+  expect_match(stylesheet, "\\.de-root \\.rt-search")
+  expect_match(stylesheet, "background-color: var\\(--bs-body-bg\\)")
+  expect_match(stylesheet, "color: var\\(--bs-body-color\\)")
+})
+
 test_that("variable summary cards expose tooltip-enabled chart bars", {
   summary_df <- summarize_columns(data.frame(
     category = c("a", "b", "a"),

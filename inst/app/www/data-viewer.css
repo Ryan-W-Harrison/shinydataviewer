@@ -2,8 +2,16 @@
   --de-border: var(--bs-border-color);
   --de-muted: var(--bs-secondary-color);
   --de-text: var(--bs-body-color);
-  --de-surface: color-mix(in srgb, var(--bs-body-bg) 94%, white 6%);
-  --de-surface-strong: color-mix(in srgb, var(--bs-body-bg) 86%, white 14%);
+  --de-surface: color-mix(
+    in srgb,
+    var(--bs-body-bg) 94%,
+    var(--bs-body-color) 6%
+  );
+  --de-surface-strong: color-mix(
+    in srgb,
+    var(--bs-body-bg) 86%,
+    var(--bs-body-color) 14%
+  );
   --de-accent: var(--bs-primary);
   --de-accent-rgb: var(--bs-primary-rgb);
   --de-danger: var(--bs-danger);
@@ -11,7 +19,7 @@
 }
 
 .de-root .de-sidebar {
-  background: color-mix(in srgb, var(--de-surface) 90%, transparent 10%);
+  background: transparent;
   border: 0;
   border-radius: 1rem;
   box-shadow: none;
@@ -62,7 +70,7 @@
   background: linear-gradient(
     135deg,
     rgba(var(--de-accent-rgb), 0.12),
-    color-mix(in srgb, var(--de-surface-strong) 92%, white 8%)
+    color-mix(in srgb, var(--de-surface-strong) 92%, var(--bs-body-color) 8%)
   );
   border-bottom: 0;
   font-family: var(--bs-heading-font-family);
@@ -84,7 +92,7 @@
 
 .de-root .de-var-card > .card-body,
 .de-root .de-empty-card > .card-body {
-  background: color-mix(in srgb, var(--de-surface) 96%, transparent 4%);
+  background: transparent;
   border-radius: 1rem;
   overflow: visible;
 }
@@ -129,6 +137,59 @@
   order: 3;
 }
 
+.de-root .Reactable {
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
+}
+
+.de-root .rt-table,
+.de-root .rt-th,
+.de-root .rt-td,
+.de-root .rt-td-filter,
+.de-root .rt-pagination {
+  border-color: var(--bs-border-color);
+}
+
+.de-root .rt-th-group::after {
+  background-color: var(--bs-border-color);
+}
+
+.de-root .rt-search,
+.de-root .rt-filter,
+.de-root .rt-page-jump,
+.de-root .rt-page-size-select {
+  background-color: var(--bs-body-bg);
+  border-color: var(--bs-border-color);
+  color: var(--bs-body-color);
+}
+
+.de-root .rt-search::placeholder,
+.de-root .rt-filter::placeholder {
+  color: var(--bs-secondary-color);
+  opacity: 1;
+}
+
+.de-root .rt-search:focus,
+.de-root .rt-filter:focus,
+.de-root .rt-page-jump:focus,
+.de-root .rt-page-size-select:focus {
+  border-color: var(--bs-primary);
+  outline: 0;
+}
+
+.de-root .rt-page-button:hover,
+.de-root .rt-keyboard-active .rt-page-button:focus {
+  background-color: rgba(var(--bs-primary-rgb), 0.1);
+}
+
+.de-root .rt-page-button:active {
+  background-color: rgba(var(--bs-primary-rgb), 0.18);
+}
+
+.de-root .rt-expander::after {
+  border-top-color: var(--bs-body-color);
+}
+
 .de-root .de-var-card__body {
   display: grid;
   gap: 0.75rem;
@@ -169,7 +230,11 @@
 }
 
 .de-root .de-missing-bar {
-  background: color-mix(in srgb, var(--de-border) 55%, white 45%);
+  background: color-mix(
+    in srgb,
+    var(--de-border) 55%,
+    var(--bs-body-color) 45%
+  );
   border-radius: 999px;
   height: 0.42rem;
   overflow: hidden;

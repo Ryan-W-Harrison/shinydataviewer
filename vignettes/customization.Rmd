@@ -103,6 +103,9 @@ viewer types.
 The module styles use Bootstrap variables, so they follow the active `bslib`
 theme and `brand.yml` values automatically.
 
+They also respond to live light and dark mode changes from
+`bslib::input_dark_mode()` and `bslib::toggle_dark_mode()`.
+
 ```{r eval = FALSE}
 ui <- page_fillable(
   theme = bs_theme(version = 5, brand = "brand.yml"),
