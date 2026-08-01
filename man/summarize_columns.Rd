@@ -25,3 +25,13 @@ categorical count payloads used by the compact mini charts.
 \description{
 Summarize Columns in a Data Frame
 }
+\examples{
+column_summary <- summarize_columns(iris)
+column_summary[c(
+  "var_name",
+  "type",
+  "n_missing",
+  "pct_missing",
+  "n_unique"
+)]
+}

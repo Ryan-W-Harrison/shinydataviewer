@@ -7,6 +7,7 @@
 * Add bslib dark mode compatibility
 * Fix transparent backgrounds between card elements when in fullscreen mode
 * Add `plot_color` parameter to change color of sidebar plots
+* Add example for `summarize_columns()`
 
 # shinydataviewer 0.1.0
 
