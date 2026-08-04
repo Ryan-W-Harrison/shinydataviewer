@@ -1,4 +1,4 @@
-# shinydataviewer (development version)
+# shinydataviewer 0.2.0
 
 * Add support for datetimes
 * Add 'hms' to Suggests
