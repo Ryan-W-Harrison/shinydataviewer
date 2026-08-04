@@ -2,6 +2,7 @@
 
 * Add support for datetimes
 * Add 'hms' to Suggests
+* Add 'spelling' to Suggests
 * Add new example that lets user upload data
 * Fix bug when categorical column is completely missing
 * Add bslib dark mode compatibility
