@@ -16,6 +16,7 @@ Suggests:
     knitr,
     pkgdown,
     rmarkdown,
+    spelling,
     testthat (>= 3.0.0)
 Config/Needs/website: pkgdown, knitr, rmarkdown
 Config/Needs/README: knitr, rmarkdown
@@ -25,3 +26,4 @@ VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
 URL: https://ryan-w-harrison.github.io/shinydataviewer/, https://github.com/Ryan-W-Harrison/shinydataviewer
 Config/roxygen2/version: 8.0.0
+Language: en-US

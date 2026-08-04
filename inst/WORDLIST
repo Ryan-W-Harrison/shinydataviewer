@@ -2,6 +2,8 @@ CMD
 Theming
 UI
 bslib
+fullscreen
+hms
 pkgdown
 reactable
 reactives
