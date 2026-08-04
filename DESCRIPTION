@@ -1,6 +1,6 @@
 Package: shinydataviewer
 Title: Reusable Data Viewer Module for 'shiny'
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: 
     person("Ryan", "Harrison", , "harrison.ryan.w@gmail.com", role = c("aut", "cre", "cph"))
 Description: Provides a reusable 'shiny' module for viewing tabular data with a searchable 'reactable' table and a variable summary sidebar built with 'bslib'.
@@ -12,15 +12,18 @@ Imports:
     reactable,
     shiny
 Suggests:
+    hms,
     knitr,
     pkgdown,
     rmarkdown,
+    spelling,
     testthat (>= 3.0.0)
 Config/Needs/website: pkgdown, knitr, rmarkdown
 Config/Needs/README: knitr, rmarkdown
 Config/testthat/edition: 3
 Encoding: UTF-8
 VignetteBuilder: knitr
-RoxygenNote: 7.3.3
 Roxygen: list(markdown = TRUE)
 URL: https://ryan-w-harrison.github.io/shinydataviewer/, https://github.com/Ryan-W-Harrison/shinydataviewer
+Config/roxygen2/version: 8.0.0
+Language: en-US

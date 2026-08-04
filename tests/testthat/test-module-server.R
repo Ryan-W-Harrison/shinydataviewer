@@ -81,6 +81,24 @@ test_that("validate_data_frame rejects invalid inputs", {
   )
 })
 
+test_that("module server renders hms columns", {
+  input_df <- data.frame(
+    time = hms::as_hms(c("08:30:00", "14:15:00", NA))
+  )
+
+  shiny::testServer(
+    data_viewer_server,
+    args = list(
+      id = "viewer",
+      data = shiny::reactive(input_df)
+    ),
+    {
+      expect_match(output$summary_panel$html, "time")
+      expect_match(as.character(output$data_table), "08:30:00")
+    }
+  )
+})
+
 test_that("validate_summary_card_fn rejects invalid inputs", {
   expect_error(
     validate_summary_card_fn("not a function"),

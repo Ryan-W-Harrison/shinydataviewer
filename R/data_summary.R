@@ -1,7 +1,8 @@
 #' Summarize Columns in a Data Frame
 #'
 #' @param df A data frame to summarize. Supported column classes are numeric,
-#'   integer, character, factor, logical, `Date`, and `POSIXct`/`POSIXt`.
+#'   integer, character, factor, logical, `Date`, `POSIXct`/`POSIXt`, and
+#'   `hms`/`difftime`.
 #' @param top_n Maximum number of categorical levels to keep before collapsing
 #'   the remainder into `"Other"`.
 #'
@@ -11,6 +12,16 @@
 #'   containing per-type summary values used by the details accordion.
 #'   `distribution_data` is a list-column containing precomputed histogram or
 #'   categorical count payloads used by the compact mini charts.
+#'
+#' @examples
+#' column_summary <- summarize_columns(iris)
+#' column_summary[c(
+#'   "var_name",
+#'   "type",
+#'   "n_missing",
+#'   "pct_missing",
+#'   "n_unique"
+#' )]
 #' @export
 summarize_columns <- function(df, top_n = 6) {
   stopifnot(is.data.frame(df))
@@ -43,6 +54,10 @@ pct_missing <- function(x) {
 }
 
 column_type <- function(x) {
+  if (inherits(x, "difftime")) {
+    return("time")
+  }
+
   if (inherits(x, "POSIXt")) {
     return("datetime")
   }
@@ -130,25 +145,47 @@ summarize_vector <- function(x, top_n = 6) {
     ))
   }
 
-  counts <- categorical_counts(x)
+  if (type == "time") {
+    values <- finite_time_values(x)
+    seconds <- as.numeric(values, units = "secs")
 
-  list(
-    missing = n_missing,
-    n_unique = unique_non_missing(x),
-    top_levels = utils::head(
+    return(list(
+      missing = n_missing,
+      min = seconds_as_difftime(safe_numeric_stat(seconds, min)),
+      median = seconds_as_difftime(safe_numeric_stat(seconds, stats::median)),
+      max = seconds_as_difftime(safe_numeric_stat(seconds, max))
+    ))
+  }
+
+  counts <- categorical_counts(x)
+  top_levels <- if (nrow(counts) == 0) {
+    data.frame(
+      level = character(),
+      count = integer(),
+      pct = numeric(),
+      stringsAsFactors = FALSE
+    )
+  } else {
+    utils::head(
       transform(
         counts,
         pct = safe_share(count, sum(count))
       ),
       top_n
     )
+  }
+
+  list(
+    missing = n_missing,
+    n_unique = unique_non_missing(x),
+    top_levels = top_levels
   )
 }
 
 distribution_data <- function(x, top_n = 6) {
   type <- column_type(x)
 
-  if (type %in% c("numeric", "date", "datetime")) {
+  if (type %in% c("numeric", "date", "datetime", "time")) {
     values <- summarized_distribution_values(x, type)
 
     if (length(values) == 0) {
@@ -157,6 +194,8 @@ distribution_data <- function(x, top_n = 6) {
 
     hist_values <- if (type %in% c("date", "datetime")) {
       as.double(as.numeric(values))
+    } else if (type == "time") {
+      as.numeric(values, units = "secs")
     } else {
       values
     }
@@ -181,6 +220,11 @@ distribution_data <- function(x, top_n = 6) {
       tz <- datetime_tz(x)
       ranges$left <- as.POSIXct(ranges$left, origin = "1970-01-01", tz = tz)
       ranges$right <- as.POSIXct(ranges$right, origin = "1970-01-01", tz = tz)
+    }
+
+    if (type == "time") {
+      ranges$left <- seconds_as_difftime(ranges$left)
+      ranges$right <- seconds_as_difftime(ranges$right)
     }
 
     return(list(
@@ -275,6 +319,16 @@ finite_datetime_values <- function(x) {
   values[is.finite(numeric_values)]
 }
 
+finite_time_values <- function(x) {
+  values <- x[!is.na(x)]
+  numeric_values <- as.numeric(values, units = "secs")
+  values[is.finite(numeric_values)]
+}
+
+seconds_as_difftime <- function(x) {
+  as.difftime(x, units = "secs")
+}
+
 summarized_distribution_values <- function(x, type) {
   if (identical(type, "numeric")) {
     return(finite_numeric_values(x))
@@ -282,6 +336,10 @@ summarized_distribution_values <- function(x, type) {
 
   if (identical(type, "datetime")) {
     return(finite_datetime_values(x))
+  }
+
+  if (identical(type, "time")) {
+    return(finite_time_values(x))
   }
 
   x[!is.na(x)]
@@ -332,7 +390,7 @@ validate_supported_columns <- function(df) {
     sprintf(
       paste(
         "Unsupported column types detected.",
-        "Supported types are numeric, integer, character, factor, logical, Date, and POSIXct/POSIXt.",
+        "Supported types are numeric, integer, character, factor, logical, Date, POSIXct/POSIXt, and hms/difftime.",
         "Problem columns: %s"
       ),
       paste(unsupported_labels, collapse = ", ")
@@ -347,5 +405,6 @@ is_supported_column <- function(x) {
     is.logical(x) ||
     is.numeric(x) ||
     inherits(x, "Date") ||
-    inherits(x, "POSIXt")
+    inherits(x, "POSIXt") ||
+    inherits(x, "difftime")
 }

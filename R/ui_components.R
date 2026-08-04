@@ -177,6 +177,20 @@ detail_panel <- function(type, stats) {
     ))
   }
 
+  if (type == "time") {
+    rows <- list(
+      detail_row("Missing", format_count(stats$missing)),
+      detail_row("Min", format_time(stats$min)),
+      detail_row("Median", format_time(stats$median)),
+      detail_row("Max", format_time(stats$max))
+    )
+
+    return(htmltools::tags$div(
+      class = "de-detail-grid",
+      htmltools::tagList(rows)
+    ))
+  }
+
   top_levels <- stats$top_levels
   level_rows <- if (nrow(top_levels) == 0) {
     htmltools::tags$div(class = "de-detail-empty", "No non-missing levels")
@@ -293,6 +307,28 @@ format_datetime <- function(x) {
 }
 
 #' @noRd
+format_time <- function(x) {
+  if (is.na(x)) {
+    return("NA")
+  }
+
+  seconds <- as.numeric(x, units = "secs")
+  sign <- if (seconds < 0) "-" else ""
+  seconds <- round(abs(seconds))
+  hours <- floor(seconds / 3600)
+  minutes <- floor((seconds %% 3600) / 60)
+  remaining_seconds <- seconds %% 60
+
+  sprintf(
+    "%s%02d:%02d:%02d",
+    sign,
+    hours,
+    minutes,
+    remaining_seconds
+  )
+}
+
+#' @noRd
 categorical_tooltip <- function(value, count, total) {
   sprintf(
     "Value: '%s'\nCount: %s (%s)",
@@ -321,6 +357,16 @@ histogram_tooltip <- function(
 
 #' @noRd
 format_range_value <- function(x, value_type = "numeric") {
+  if (inherits(x, "difftime") || identical(value_type, "time")) {
+    seconds <- if (inherits(x, "difftime")) {
+      as.numeric(x, units = "secs")
+    } else {
+      as.numeric(x)
+    }
+
+    return(format_time(seconds_as_difftime(seconds)))
+  }
+
   if (inherits(x, "POSIXt") || identical(value_type, "datetime")) {
     tz <- attr(x, "tzone")
 

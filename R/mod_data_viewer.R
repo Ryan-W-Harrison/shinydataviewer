@@ -7,6 +7,10 @@
 #' @param sidebar_title Optional title for the variable summary sidebar.
 #' @param table_controls_position Where table pagination controls should appear.
 #'   One of `"top"` or `"bottom"`.
+#' @param plot_color Optional CSS color used by the variable-summary mini plots.
+#'   Accepts values such as `"#2c7fb8"`, `"rebeccapurple"`, `"rgb(44 127
+#'   184)"`, or `"var(--bs-success)"`. If `NULL`, the active Bootstrap primary
+#'   color is used.
 #'
 #' @return The module UI.
 #'
@@ -32,7 +36,8 @@ data_viewer_ui <- function(
   standalone = TRUE,
   table_title = NULL,
   sidebar_title = NULL,
-  table_controls_position = c("top", "bottom")
+  table_controls_position = c("top", "bottom"),
+  plot_color = NULL
 ) {
   table_controls_position <- match.arg(table_controls_position)
 
@@ -43,7 +48,8 @@ data_viewer_ui <- function(
       table_title = table_title,
       sidebar_title = sidebar_title
     ),
-    root_class = paste0("de-root--controls-", table_controls_position)
+    root_class = paste0("de-root--controls-", table_controls_position),
+    root_style = plot_color_style(plot_color)
   )
 }
 
@@ -103,6 +109,10 @@ data_viewer_layout_ui <- function(
 #' @param sidebar_title Optional title for the variable summary sidebar.
 #' @param table_controls_position Where table pagination controls should appear.
 #'   One of `"top"` or `"bottom"`.
+#' @param plot_color Optional CSS color used by the variable-summary mini plots.
+#'   Accepts values such as `"#2c7fb8"`, `"rebeccapurple"`, `"rgb(44 127
+#'   184)"`, or `"var(--bs-success)"`. If `NULL`, the active Bootstrap primary
+#'   color is used.
 #'
 #' @return A card containing the module UI.
 #' @examples
@@ -138,7 +148,8 @@ data_viewer_card_ui <- function(
   title = NULL,
   full_screen = TRUE,
   sidebar_title = NULL,
-  table_controls_position = c("top", "bottom")
+  table_controls_position = c("top", "bottom"),
+  plot_color = NULL
 ) {
   table_controls_position <- match.arg(table_controls_position)
   card_header <- if (is.null(title)) NULL else bslib::card_header(title)
@@ -159,7 +170,8 @@ data_viewer_card_ui <- function(
         )
       )
     ),
-    root_class = paste0("de-root--controls-", table_controls_position)
+    root_class = paste0("de-root--controls-", table_controls_position),
+    root_style = plot_color_style(plot_color)
   )
 }
 
@@ -168,7 +180,7 @@ data_viewer_card_ui <- function(
 #' @param id Module id.
 #' @param data Reactive returning a data frame. Supported column classes are
 #'   numeric, integer, character, factor, logical, `Date`, and
-#'   `POSIXct`/`POSIXt`.
+#'   `POSIXct`/`POSIXt`, and `hms`/`difftime`.
 #' @param top_n Maximum number of categorical levels to keep in compact summary
 #'   views before collapsing the remainder into `"Other"`.
 #' @param default_page_size Optional default number of rows to show in the table.
@@ -444,7 +456,7 @@ unsupported_columns_message <- function(df) {
   sprintf(
     paste(
       "Unsupported column types detected.",
-      "Supported types are numeric, integer, character, factor, logical, Date, and POSIXct/POSIXt.",
+      "Supported types are numeric, integer, character, factor, logical, Date, POSIXct/POSIXt, and hms/difftime.",
       "Problem columns: %s"
     ),
     paste(unsupported_labels, collapse = ", ")
@@ -454,7 +466,7 @@ unsupported_columns_message <- function(df) {
 default_reactable_theme <- function() {
   reactable::reactableTheme(
     borderColor = "var(--bs-border-color)",
-    stripedColor = "color-mix(in srgb, var(--bs-body-bg) 88%, white 12%)",
+    stripedColor = "color-mix(in srgb, var(--bs-body-bg) 94%, var(--bs-body-color) 6%)",
     highlightColor = "rgba(var(--bs-primary-rgb), 0.08)",
     rowSelectedStyle = list(
       backgroundColor = "rgba(var(--bs-primary-rgb), 0.14)"

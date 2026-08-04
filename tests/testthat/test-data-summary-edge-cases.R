@@ -27,6 +27,43 @@ test_that("all-missing columns produce stable summary metadata", {
   expect_true(is.na(date_stats$max))
 })
 
+test_that("an all-missing character column has no top levels", {
+  summary_df <- summarize_columns(data.frame(
+    empty = c(NA_character_, NA_character_, NA_character_)
+  ))
+
+  expect_identical(summary_df$type[[1]], "character")
+  expect_identical(summary_df$n_missing[[1]], 3L)
+  expect_identical(summary_df$pct_missing[[1]], 1)
+  expect_identical(summary_df$n_unique[[1]], 0L)
+
+  top_levels <- summary_df$summary_stats[[1]]$top_levels
+  expect_identical(names(top_levels), c("level", "count", "pct"))
+  expect_identical(nrow(top_levels), 0L)
+})
+
+test_that("mixed data summarizes alongside all-missing categorical columns", {
+  df <- data.frame(
+    id = c("A", "B", "C"),
+    dose = c(10, 20, 15),
+    empty_flag = c(NA_character_, NA_character_, NA_character_),
+    stringsAsFactors = FALSE
+  )
+
+  summary_df <- summarize_columns(df)
+
+  expect_identical(summary_df$var_name, c("id", "dose", "empty_flag"))
+  expect_identical(summary_df$n_missing, c(0L, 0L, 3L))
+  expect_identical(
+    nrow(summary_df$summary_stats[[3]]$top_levels),
+    0L
+  )
+  expect_identical(
+    nrow(summary_df$distribution_data[[3]]$counts),
+    0L
+  )
+})
+
 test_that("zero-row and single-column data frames summarize cleanly", {
   df <- data.frame(value = numeric(0))
 
@@ -78,6 +115,25 @@ test_that("POSIXct columns are summarized as datetimes", {
   distribution <- summary_df$distribution_data[[1]]
   expect_identical(distribution$value_type, "datetime")
   expect_s3_class(distribution$ranges$left, "POSIXct")
+})
+
+test_that("hms and difftime columns are summarized as times", {
+  times <- hms::as_hms(c("08:30:00", "14:15:00", NA, "09:00:00"))
+
+  summary_df <- summarize_columns(data.frame(time = times))
+
+  expect_identical(summary_df$type[[1]], "time")
+  time_stats <- summary_df$summary_stats[[1]]
+  expect_s3_class(time_stats$min, "difftime")
+  expect_equal(as.numeric(time_stats$min, units = "secs"), 8.5 * 60 * 60)
+  expect_equal(as.numeric(time_stats$median, units = "secs"), 9 * 60 * 60)
+  expect_equal(as.numeric(time_stats$max, units = "secs"), 14.25 * 60 * 60)
+
+  distribution <- summary_df$distribution_data[[1]]
+  expect_identical(distribution$value_type, "time")
+  expect_identical(distribution$kind, "histogram")
+  expect_s3_class(distribution$ranges$left, "difftime")
+  expect_equal(distribution$total, 3L)
 })
 
 test_that("non-finite numeric values are excluded from stats and histograms", {

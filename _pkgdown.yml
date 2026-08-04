@@ -1,9 +1,14 @@
 url: https://ryan-w-harrison.github.io/shinydataviewer/
+
+development:
+  mode: auto
+  
 template:
   bootstrap: 5
 home:
   sidebar:
     structure:
+    - links
     - license
     - authors
     - dev
@@ -32,4 +37,3 @@ articles:
   contents:
   - get-started
   - customization
-

@@ -24,7 +24,7 @@ data_viewer_server(
 
 \item{data}{Reactive returning a data frame. Supported column classes are
 numeric, integer, character, factor, logical, \code{Date}, and
-\code{POSIXct}/\code{POSIXt}.}
+\code{POSIXct}/\code{POSIXt}, and \code{hms}/\code{difftime}.}
 
 \item{top_n}{Maximum number of categorical levels to keep in compact summary
 views before collapsing the remainder into \code{"Other"}.}

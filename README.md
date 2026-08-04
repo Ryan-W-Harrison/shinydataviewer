@@ -41,9 +41,13 @@ main exported functions are:
 - `data_viewer_card_ui(id, title = NULL)`
 - `summarize_columns(df)`
 
+Both UI helpers accept `plot_color` to customize all variable-summary
+mini plots in a viewer with any CSS color, such as
+`"var(--bs-success)"`.
+
 `data` should be a reactive expression that returns a `data.frame`.
 Supported column classes are numeric, integer, character, factor,
-logical, `Date`, and `POSIXct`/`POSIXt`.
+logical, `Date`, `POSIXct`/`POSIXt`, and `hms`/`difftime`.
 
 ## Minimal module example
 
@@ -111,6 +115,24 @@ shinyApp(ui, server)
 An additional runnable example is included at
 `inst/examples/embedded-card-example.R`.
 
+## Upload example
+
+The app in `inst/examples/upload-dataset/` lets users upload a CSV or
+RDS file and displays the resulting data frame in a `shinydataviewer`
+card. Run it from a package checkout with:
+
+``` r
+shiny::runApp("inst/examples/upload-dataset")
+```
+
+For an installed copy of the package, use:
+
+``` r
+shiny::runApp(
+  system.file("examples/upload-dataset", package = "shinydataviewer")
+)
+```
+
 ## Theming and branding
 
 The viewer styles are attached as a package dependency and use Bootstrap
@@ -118,6 +140,10 @@ The viewer styles are attached as a package dependency and use Bootstrap
 module will follow the active `bslib` theme and should pick up branding
 supplied through `bs_theme()` or a `brand.yml`-driven theme without
 additional module-specific configuration.
+
+The viewer also follows live Bootstrap color-mode changes made with
+`bslib::input_dark_mode()` or `bslib::toggle_dark_mode()`, including its
+`reactable` table and variable-summary sidebar.
 
 ``` r
 ui <- page_fillable(
