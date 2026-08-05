@@ -18,4 +18,6 @@ devtools::check()
 
 devtools::check(remote = TRUE, manual = TRUE)
 
-devtools::check_win_devel()
+# devtools::check_win_devel()
+
+# devtools::submit_cran()
