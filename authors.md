@@ -7,7 +7,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/Ryan-W-Harrison/shinydataviewer/blob/dev/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/Ryan-W-Harrison/shinydataviewer/blob/v0.2.0/DESCRIPTION)
 
 Harrison R (2026). *shinydataviewer: Reusable Data Viewer Module for
 'shiny'*. R package version 0.2.0,

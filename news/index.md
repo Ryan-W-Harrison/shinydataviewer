@@ -2,6 +2,8 @@
 
 ## shinydataviewer 0.2.0
 
+CRAN release: 2026-08-05
+
 - Add support for datetimes
 - Add ‘hms’ to Suggests
 - Add ‘spelling’ to Suggests
